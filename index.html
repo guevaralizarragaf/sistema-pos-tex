@@ -4,14 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fortalecernos SAC - Gestión de PDV</title>
+    <!-- IMPORTACIÓN DE FUENTES TIPO DE DISEÑO -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
     
+    <!-- VÍNCULO AL ARCHIVO DE ESTILOS SEPARADO -->
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
+    <!-- BARRA LATERAL (SIDEBAR DE NAVEGACIÓN) -->
     <div class="sidebar">
         <div class="logo-section">
             <h2>Fortalecernos SAC</h2>
@@ -24,6 +27,7 @@
             </ul>
         </div>
         
+        <!-- INFORMACIÓN DE PERFIL JERÁRQUICO -->
         <div class="user-info-bar">
             <div class="user-row">
                 <div class="user-meta">
@@ -41,6 +45,7 @@
         </div>
     </div>
 
+    <!-- SECCIÓN 1: REGISTRO DE VENTAS -->
     <div class="main-content active-view" id="viewRegistro">
         <div class="header">
             <div>
@@ -56,6 +61,7 @@
             </div>
         </div>
 
+        <!-- GRILLA HORIZONTAL DE 6 PRODUCTOS COMPACTOS -->
         <div class="indicators-horizontal-wrapper">
             <div class="indicators-row">
                 <div class="card" style="border-color: rgba(16, 185, 129, 0.35);">
@@ -103,6 +109,7 @@
             </div>
         </div>
 
+        <!-- CONTENEDOR DE LA TABLA HISTORIAL -->
         <div class="table-slider-container">
             <div class="table-title">Historial de Ventas del día</div>
             <table>
@@ -147,6 +154,7 @@
         </div>
     </div>
 
+    <!-- SECCIÓN 2: DASHBOARD AVANZADO -->
     <div class="main-content" id="viewDashboard">
         <div class="header">
             <div>
@@ -164,6 +172,7 @@
         <div id="contenedorTablasAsesores"></div>
     </div>
 
+    <!-- SECCIÓN 3: LOGÍSTICA MÓDULO MAESTRO -->
     <div class="main-content" id="viewLogistica">
         <div class="header">
             <div>
@@ -179,6 +188,7 @@
             </div>
         </div>
 
+        <!-- SUB-VISTA A: STOCK ACTUAL -->
         <div id="subViewStock">
             <div class="table-container" style="padding: 16px 20px; margin-bottom: 20px;">
                 <div style="font-size: 13.5px; font-weight: 700; color: var(--text-main); margin-bottom: 12px; letter-spacing: 0.3px;">🔍 Filtros de Búsqueda Rápida</div>
@@ -307,6 +317,7 @@
             </div>
         </div>
 
+        <!-- SUB-VISTA B: GESTIÓN DE STOCK -->
         <div id="subViewGestion" style="display: none;">
             <div class="header" style="margin-bottom: 12px; border-bottom: 1px solid var(--border); padding-bottom: 10px;">
                 <h2 style="font-family: 'Instrument Sans', sans-serif; font-size: 18px; font-weight: 700; color: var(--text-main);">Transferencia de Stock</h2>
@@ -470,6 +481,7 @@
         </div>
     </div>
 
+    <!-- SECCIÓN 4: CONTROL DE ASISTENCIA RECOMPACTADO VERTICALMENTE -->
     <div class="main-content" id="viewAsistencia">
         <div class="header" style="margin-bottom: 16px;">
             <div>
@@ -559,6 +571,7 @@
                 </table>
             </div>
 
+            <!-- SE ALINEÓ EL ID DEL CONTENEDOR DEL IFRAME DE FORMA ROBUSTA -->
             <div class="gps-map-section">
                 <div class="gps-title-bar">
                     <h3 style="font-size: 13px; font-weight: 600;">📍 Ubicación Detectada via Satélite (GPS Obligatorio)</h3>
@@ -571,6 +584,7 @@
         </div>
     </div>
 
+    <!-- POP-UP MODAL 1: REGISTRO DE VENTAS -->
     <div class="modal-overlay" id="modalVenta">
         <div class="modal-box">
             <div class="modal-header-wrapper">
@@ -668,6 +682,7 @@
         </div>
     </div>
 
+    <!-- POP-UP MODAL 2: REGISTRO DE INTERACCIONES -->
     <div class="modal-overlay" id="modalInteraccion">
         <div class="modal-box">
             <div class="modal-header-wrapper">
@@ -711,6 +726,7 @@
         </div>
     </div>
 
+    <!-- POP-UP MODAL 3: AUDITORÍA DE IMEIS -->
     <div class="modal-overlay" id="modalImeis">
         <div class="modal-box" style="width: 500px;">
             <div class="modal-header-wrapper">
@@ -734,6 +750,7 @@
         </div>
     </div>
 
+    <!-- POP-UP MODAL 4: VISUALIZADOR DE EVIDENCIA FOTOGRÁFICA -->
     <div class="modal-overlay" id="modalVisualizadorFoto">
         <div class="modal-box" style="width: 420px; text-align: center;">
             <div class="modal-header-wrapper">

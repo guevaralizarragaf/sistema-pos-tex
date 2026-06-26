@@ -1,6 +1,6 @@
 /* ==========================================================================
    FORTALECERNOS SAC - SISTEMA DE GESTIÓN DE PDV (TEX ICA II)
-   ESTILO CORE v1.10: COMPACTADO, TRASLÚCIDO Y ULTRA-PRECISO TIPO iOS
+   ESTILO CORE v1.12: CORRECCIÓN DE INSIGNIAS DE TABLA Y UNIFICACIÓN DE RADIOS
    ========================================================================== */
 
 /* --- CONFIGURACIÓN GENERAL Y RESET --- */
@@ -74,7 +74,9 @@ input[type=number] {
     --toggle-text-active: #0f172a;
 
     --radio-box-bg: rgba(255, 255, 255, 0.03);
-    --radio-box-border: rgba(255, 255, 255, 0.08);
+    --radio-box-border: rgba(255, 255, 255, 0.12);
+    --radio-active-border: #6366f1;
+    --radio-active-bg: rgba(99, 102, 241, 0.08);
 
     --btn-int-bg: rgba(139, 92, 246, 0.35); 
     --btn-int-border: rgba(167, 139, 250, 0.7); 
@@ -84,6 +86,14 @@ input[type=number] {
     --btn-danger-border: rgba(239, 68, 68, 0.45);
     --btn-danger-text: #fca5a5;
     --btn-danger-hover: rgba(239, 68, 68, 0.3);
+
+    /* Insignias Modo Oscuro */
+    --badge-post-bg: rgba(16, 185, 129, 0.15);
+    --badge-post-text: #34d399;
+    --badge-post-border: rgba(16, 185, 129, 0.3);
+    --badge-pre-bg: rgba(249, 115, 22, 0.15);
+    --badge-pre-text: #fb923c;
+    --badge-pre-border: rgba(249, 115, 22, 0.3);
 }
 
 [data-theme="white"] {
@@ -121,8 +131,10 @@ input[type=number] {
     --toggle-active: #ffffff; 
     --toggle-text-active: #0f172a; 
 
-    --radio-box-bg: rgba(0, 0, 0, 0.03);
+    --radio-box-bg: rgba(0, 0, 0, 0.02);
     --radio-box-border: rgba(15, 23, 42, 0.15);
+    --radio-active-border: #4f46e5;
+    --radio-active-bg: rgba(79, 70, 229, 0.08);
 
     --btn-int-bg: rgba(109, 40, 217, 0.15); 
     --btn-int-border: rgba(109, 40, 217, 0.5); 
@@ -132,6 +144,14 @@ input[type=number] {
     --btn-danger-border: rgba(220, 38, 38, 0.4);
     --btn-danger-text: #dc2626;
     --btn-danger-hover: rgba(220, 38, 38, 0.15);
+
+    /* Insignias Modo Claro Corregidas (image_2b5f38.png) */
+    --badge-post-bg: rgba(16, 185, 129, 0.1);
+    --badge-post-text: #059669;
+    --badge-post-border: rgba(16, 185, 129, 0.3);
+    --badge-pre-bg: rgba(217, 119, 6, 0.1);
+    --badge-pre-text: #d97706;
+    --badge-pre-border: rgba(217, 119, 6, 0.3);
 }
 
 /* ==========================================================================
@@ -303,7 +323,7 @@ input:checked + .slider:before { transform: translateX(18px); }
 }
 
 /* ==========================================================================
-   BALDOSAS E INDICADORES (ANCHO COMPACTADO)
+   BALDOSAS E INDICADORES
    ========================================================================== */
 .indicators-horizontal-wrapper { width: 100%; overflow-x: auto; margin-bottom: 28px; padding-bottom: 8px; }
 .indicators-horizontal-wrapper::-webkit-scrollbar { height: 5px; }
@@ -365,13 +385,13 @@ input:checked + .slider:before { transform: translateX(18px); }
 .metric-subvalue.up { color: #10b981; }
 .metric-subvalue.down { color: #ef4444; }
 
-/* SEGMENTED CONTROLS CONTENEDOR */
+/* SEGMENTED CONTROLS */
 .view-toggle-container { display: flex; background: var(--toggle-bg); padding: 3px; border-radius: 9px; border: 1px solid var(--border); }
 .toggle-tab { padding: 5px 14px; border-radius: 7px; font-size: 12px; font-weight: 600; color: var(--text-muted); cursor: pointer; border: none; background: transparent; }
 .toggle-tab.active-tab { background: var(--toggle-active) !important; color: var(--toggle-text-active) !important; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.12), 0 1px 1.5px rgba(0, 0, 0, 0.04); }
 
 /* ==========================================================================
-   TABLAS Y ELEMENTOS ANÁLITICOS COMPACTADOS
+   TABLAS Y CONTENEDORES CON ADAPTACIÓN DE INSIGNIAS (image_35eaa6.png)
    ========================================================================== */
 .table-container, .table-slider-container { 
     width: 100%; overflow-x: auto; border-radius: 14px; border: 1px solid var(--border-strong);
@@ -395,11 +415,16 @@ tr:hover td { background-color: rgba(255, 255, 255, 0.07); color: #ffffff; }
 [data-theme="white"] tr:hover td { background-color: #f8fafc; color: #0f172a; }
 [data-theme="white"] .table-title { color: #0f172a; border-bottom: 1px solid #e2e8f0; background: #ffffff; padding: 14px 18px; }
 
+/* CONFIGURACIÓN CRISTAL DE RECUADROS PARA PREPAGO Y POSTPAGO EN MODO CLARO Y OSCURO */
+.badge { padding: 4px 10px; border-radius: 6px; font-size: 11px; height: auto; font-weight: 700; display: inline-block; text-align: center; }
+.badge-postpago { background: var(--badge-post-bg); color: var(--badge-post-text); border: 1px solid var(--badge-post-border); }
+.badge-prepago { background: var(--badge-pre-bg); color: var(--badge-pre-text); border: 1px solid var(--badge-pre-border); }
+
 /* ==========================================================================
-   ASISTENCIA EN ALTA DENSIDAD VISUAL
+   ASISTENCIA
    ========================================================================== */
 .attendance-grid { display: grid; grid-template-columns: 1fr 1.3fr; gap: 24px; margin-top: 12px; }
-.camera-panel { background: var(--glass-card); border: 1px solid var(--border); border-radius: 16px; padding: 20px; box-shadow: var(--shadow-card); display: flex; flex-direction: column; align-items: center; gap: 16px; }
+.camera-panel { background: var(--glass-card); border: 1px solid var(--border); border-radius: 16px; padding: 14px; box-shadow: var(--shadow-card); display: flex; flex-direction: column; align-items: center; gap: 10px; }
 .video-box-wrapper { width: 100%; aspect-ratio: 16/10; max-height: 190px; background: #04050c; border-radius: 12px; overflow: hidden; position: relative; border: 1px solid var(--border-strong); }
 video { width: 100%; height: 100%; object-fit: cover; transform: scaleX(-1); }
 .shutter-flash { position: absolute; top:0; left:0; width:100%; height:100%; background: #fff; opacity: 0; pointer-events: none; }
@@ -418,10 +443,6 @@ video { width: 100%; height: 100%; object-fit: cover; transform: scaleX(-1); }
 .gps-coordinates { font-size: 12.5px; font-weight: 700; color: #6366f1; background: rgba(99, 102, 241, 0.12); padding: 5px 12px; border-radius: 6px; border: 1px solid rgba(99, 102, 241, 0.25); }
 .map-frame-wrapper { width: 100%; height: 160px; background: rgba(0, 0, 0, 0.3); border-radius: 12px; overflow: hidden; border: 1px solid var(--border); }
 .map-frame-wrapper iframe { width: 100%; height: 100%; border: none; }
-
-.badge { padding: 3px 8px; border-radius: 5px; font-size: 11px; height: auto; font-weight: 700; }
-.badge-postpago { background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3); }
-.badge-prepago { background: rgba(249, 115, 22, 0.15); color: #fb923c; border: 1px solid rgba(249, 115, 22, 0.3); }
 
 /* ==========================================================================
    POP-UPS MODALES, INPUTS FORMULARES Y LUPA INTEGRADA
@@ -452,7 +473,7 @@ video { width: 100%; height: 100%; object-fit: cover; transform: scaleX(-1); }
 
 label { font-size: 12px; font-weight: 600; color: var(--text-muted); }
 
-/* Parche del botón lupa incrustado armónicamente al lado de la caja de texto */
+/* Botón lupa incrustado al lado de la caja de texto */
 .form-group button[onclick*="buscarClienteBase"],
 .form-group button[type="button"] {
     background: var(--input-bg) !important;
@@ -479,7 +500,7 @@ input:disabled, select:disabled { background: rgba(148, 163, 184, 0.1); color: v
 select option { background-color: var(--option-bg); color: var(--text-main); }
 
 /* ==========================================================================
-   SOLUCIÓN MAESTRA EXCLUSIVA: ENCAPSULADO SÓLO PARA LAS PILL TABS (image_2bdbd0.png)
+   UNIFICACIÓN ESTÉTICA DE PREPAGO Y POSTPAGO EN EL FORMULARIO (image_35eb1c.png)
    ========================================================================== */
 #groupModalidad div {
     display: flex !important;
@@ -489,7 +510,7 @@ select option { background-color: var(--option-bg); color: var(--text-main); }
     align-items: center !important;
 }
 
-/* Modificado quirúrgicamente: el estilo de cristal se inyecta sólo a los labels hijos de la grilla */
+/* Forzado milimétrico: Ambos botones comparten idéntico estilo estructural, borde e iluminación */
 #groupModalidad div label {
     display: flex !important;
     align-items: center !important;
@@ -505,9 +526,10 @@ select option { background-color: var(--option-bg); color: var(--text-main); }
     font-weight: 600 !important;
 }
 
+/* Unificación de color en modo activo: el que reciba el check hereda el resaltado corporativo */
 #groupModalidad div label:has(input:checked) {
-    border-color: #6366f1 !important;
-    background: rgba(99, 102, 241, 0.08) !important;
+    border-color: var(--radio-active-border) !important;
+    background: var(--radio-active-bg) !important;
 }
 
 #groupModalidad input[type="radio"] {

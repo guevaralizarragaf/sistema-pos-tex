@@ -1,12 +1,12 @@
 /* ==========================================================================
    FORTALECERNOS SAC - SISTEMA DE GESTIÓN DE PDV (TEX ICA II)
-   MOTOR DE LÓGICA CORE: CONTROLADOR MODULAR EMERXENTE v1.10 (PRODUCCIÓN)
+   MOTOR DE LÓGICA CORE: CONTROLADOR MODULAR EMERXENTE v1.11 (PRODUCCIÓN)
    ========================================================================== */
 
 // --- ESTADO GLOBAL DE LA APLICACIÓN ---
 let filtroTiempo = 'dia';
 let streamCamara = null;
-const fechaHoyISO = '2026-06-26'; // Fecha unificada hoy viernes 26
+const fechaHoyISO = '2026-06-26'; // Fecha de referencia de sucursal
 let evidenciaCargadaLocal = false; 
 
 const baseClientesMock = { 
@@ -26,8 +26,8 @@ function toggleTema(checkbox) {
 // --- INICIALIZADOR DEL SISTEMA ---
 window.onload = function() {
     inicializarFechas();
-    actualizarDashboard(); // SE RECONECTA LA INYECCIÓN DEL DASHBOARD
-    setMapaCoordenadas(-14.0639, -75.7292);
+    actualizarDashboard(); 
+    setMapaCoordenadas(-14.0639, -75.7292); // Se inyecta la inicialización de coordenadas nativas para TEX ICA II
 };
 
 function inicializarFechas() {
@@ -269,7 +269,6 @@ function limpiarFiltrosLogistica() {
     document.querySelectorAll('#cuerpoTransferenciaOrigen tr').forEach(r => r.style.display = "");
 }
 
-// --- LOGÍSTICA: GENERADOR DINÁMICO DE IMEIS ---
 function verImeis(sku, cantidad) {
     const lblSku = document.getElementById('lblSkuModal');
     const tbody = document.getElementById('listaImeisCuerpo');
@@ -357,7 +356,6 @@ function evaluarReglasPrecios() {
 function ocultarElementos(arr) { arr.forEach(el => { if(el) el.style.display = 'none'; }); }
 function mostrarElementos(arr) { arr.forEach(el => { if(el) el.style.display = 'flex'; }); }
 
-// --- CONTROLES MODALES ---
 function openModal(tipo) {
     const modalId = (tipo === 'venta') ? 'modalVenta' : 'modalInteraccion';
     document.getElementById(modalId).classList.add('active');
@@ -376,7 +374,27 @@ function iniciarCamara() {
 }
 function detenerCamara() { if (streamCamara) { streamCamara.getTracks().forEach(t => t.stop()); streamCamara = null; } }
 
-// --- DASHBOARD ANALÍTICO CORE ---
+function marcarAsistenciaWithGPS(tipoLog) {
+    const flash = document.getElementById('flash');
+    if (flash) { flash.classList.add('flash-active'); setTimeout(() => flash.classList.remove('flash-active'), 400); }
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(pos => {
+            const lat = pos.coords.latitude; const lon = pos.coords.longitude;
+            document.getElementById('txtCoordenadas').innerText = `Lat: ${lat.toFixed(4)}, Lon: ${lon.toFixed(4)}`;
+            setMapaCoordenadas(lat, lon);
+            document.getElementById('logHoy').innerHTML = `<span class="badge badge-postpago" style="font-size:10px; padding:2px 6px;">${tipoLog} OK</span>`;
+        });
+    }
+}
+
+function setMapaCoordenadas(lat, lon) { 
+    const iframe = document.getElementById('mapaIframe');
+    if (iframe) {
+        iframe.src = `https://maps.google.com/maps?q=${lat},20${lon}&z=16&output=embed`; 
+    }
+}
+
+// --- DASHBOARD ANALÍTICO ---
 function switchTiempo(tiempo) { 
     filtroTiempo = tiempo; 
     document.getElementById('tabMes').classList.toggle('active-tab', tiempo === 'mes');
@@ -481,3 +499,13 @@ function actualizarDashboard() {
             </div>`;
     }
 }
+
+// --- CONTROLADOR GLOBAL TECLADO ESCAPE ---
+window.addEventListener('keydown', function (event) {
+    if (event.key === 'Escape') {
+        closeModal('modalVenta');
+        closeModal('modalInteraccion');
+        closeModal('modalImeis');
+        closeModal('modalVisualizadorFoto');
+    }
+});
