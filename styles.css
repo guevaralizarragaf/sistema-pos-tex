@@ -1,6 +1,6 @@
 /* ==========================================================================
    FORTALECERNOS SAC - SISTEMA DE GESTIÓN DE PDV (TEX ICA II)
-   ESTILO CORE v1.7: AJUSTE DE CONTRASTE DE BOTONES Y TONOS DESTRUTIVOS iOS
+   ESTILO CORE v1.10: COMPACTADO, TRASLÚCIDO Y ULTRA-PRECISO TIPO iOS
    ========================================================================== */
 
 /* --- CONFIGURACIÓN GENERAL Y RESET --- */
@@ -36,7 +36,7 @@ input[type=number] {
 }
 
 /* ==========================================================================
-   VARIABLES DE TEMA E INTERFAZ
+   VARIABLES DE TEMA E INTERFAZ RADIAL LIQUID GLASS
    ========================================================================== */
 :root {
     --bg-gradient: radial-gradient(circle at 50% 30%, #1c194c 0%, #0a0b1e 60%, #030408 100%);
@@ -76,12 +76,10 @@ input[type=number] {
     --radio-box-bg: rgba(255, 255, 255, 0.03);
     --radio-box-border: rgba(255, 255, 255, 0.08);
 
-    /* --- TONOS DE BOTÓN DE INTERACCION EN MODO OSCURO (image_f4dabc.png) --- */
-    --btn-int-bg: rgba(139, 92, 246, 0.35); /* Tono morado incrementado */
-    --btn-int-border: rgba(167, 139, 250, 0.7); /* Borde de cristal retroiluminado */
+    --btn-int-bg: rgba(139, 92, 246, 0.35); 
+    --btn-int-border: rgba(167, 139, 250, 0.7); 
     --btn-int-text: #f5f3ff;
 
-    /* --- TONOS ROJOS DE ACCIONES DESTRUTIVAS EN MODO OSCURO --- */
     --btn-danger-bg: rgba(239, 68, 68, 0.18);
     --btn-danger-border: rgba(239, 68, 68, 0.45);
     --btn-danger-text: #fca5a5;
@@ -126,12 +124,10 @@ input[type=number] {
     --radio-box-bg: rgba(0, 0, 0, 0.03);
     --radio-box-border: rgba(15, 23, 42, 0.15);
 
-    /* --- TONOS DE BOTÓN DE INTERACCION EN MODO CLARO (image_f4dabc.png) --- */
     --btn-int-bg: rgba(109, 40, 217, 0.15); 
     --btn-int-border: rgba(109, 40, 217, 0.5); 
     --btn-int-text: #6d28d9;
 
-    /* --- TONOS ROJOS DE ACCIONES DESTRUTIVAS EN MODO CLARO --- */
     --btn-danger-bg: rgba(220, 38, 38, 0.08);
     --btn-danger-border: rgba(220, 38, 38, 0.4);
     --btn-danger-text: #dc2626;
@@ -256,7 +252,7 @@ input:checked + .slider { background: linear-gradient(135deg, #4f46e5 0%, #6366f
 input:checked + .slider:before { transform: translateX(18px); }
 
 /* ==========================================================================
-   ESTRUCTURA DE CONTENIDO GENERAL Y CABECERAS
+   ESTRUCTURA DE CONTENIDO GENERAL
    ========================================================================== */
 .main-content { flex: 1; padding: 32px; overflow-y: auto; display: none; }
 .main-content.active-view { display: block; }
@@ -275,9 +271,12 @@ input:checked + .slider:before { transform: translateX(18px); }
     outline: none;
     cursor: pointer;
 }
-.date-picker-glass::-webkit-calendar-picker-indicator { filter: var(--date-icon-filter); }
+.date-picker-glass::-webkit-calendar-picker-indicator,
+.modal-date-picker::-webkit-calendar-picker-indicator { 
+    filter: var(--date-icon-filter) !important; 
+    cursor: pointer;
+}
 
-/* --- BOTONES PRINCIPALES DE CABECERA COMPACTOS --- */
 .action-buttons-wrapper { display: flex; gap: 12px; align-items: center; }
 .btn-primary { 
     background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%); color: #ffffff; padding: 8px 16px; border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 8px; font-weight: 600; font-size: 13px; cursor: pointer;
@@ -285,7 +284,6 @@ input:checked + .slider:before { transform: translateX(18px); }
 }
 .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(37, 99, 235, 0.4); filter: brightness(1.1); }
 
-/* REFINAMIENTO DE MORADO INTENSO PARA + INTERACCIÓN (image_f4dabc.png) */
 .btn-interaction {
     background: var(--btn-int-bg); 
     color: var(--btn-int-text); 
@@ -305,7 +303,7 @@ input:checked + .slider:before { transform: translateX(18px); }
 }
 
 /* ==========================================================================
-   BALDOSAS E INDICADORES
+   BALDOSAS E INDICADORES (ANCHO COMPACTADO)
    ========================================================================== */
 .indicators-horizontal-wrapper { width: 100%; overflow-x: auto; margin-bottom: 28px; padding-bottom: 8px; }
 .indicators-horizontal-wrapper::-webkit-scrollbar { height: 5px; }
@@ -367,13 +365,13 @@ input:checked + .slider:before { transform: translateX(18px); }
 .metric-subvalue.up { color: #10b981; }
 .metric-subvalue.down { color: #ef4444; }
 
-/* SEGMENTED CONTROLS */
+/* SEGMENTED CONTROLS CONTENEDOR */
 .view-toggle-container { display: flex; background: var(--toggle-bg); padding: 3px; border-radius: 9px; border: 1px solid var(--border); }
 .toggle-tab { padding: 5px 14px; border-radius: 7px; font-size: 12px; font-weight: 600; color: var(--text-muted); cursor: pointer; border: none; background: transparent; }
 .toggle-tab.active-tab { background: var(--toggle-active) !important; color: var(--toggle-text-active) !important; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.12), 0 1px 1.5px rgba(0, 0, 0, 0.04); }
 
 /* ==========================================================================
-   TABLAS
+   TABLAS Y ELEMENTOS ANÁLITICOS COMPACTADOS
    ========================================================================== */
 .table-container, .table-slider-container { 
     width: 100%; overflow-x: auto; border-radius: 14px; border: 1px solid var(--border-strong);
@@ -397,10 +395,12 @@ tr:hover td { background-color: rgba(255, 255, 255, 0.07); color: #ffffff; }
 [data-theme="white"] tr:hover td { background-color: #f8fafc; color: #0f172a; }
 [data-theme="white"] .table-title { color: #0f172a; border-bottom: 1px solid #e2e8f0; background: #ffffff; padding: 14px 18px; }
 
-/* ASISTENCIA */
-.attendance-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 24px; margin-top: 12px; }
+/* ==========================================================================
+   ASISTENCIA EN ALTA DENSIDAD VISUAL
+   ========================================================================== */
+.attendance-grid { display: grid; grid-template-columns: 1fr 1.3fr; gap: 24px; margin-top: 12px; }
 .camera-panel { background: var(--glass-card); border: 1px solid var(--border); border-radius: 16px; padding: 20px; box-shadow: var(--shadow-card); display: flex; flex-direction: column; align-items: center; gap: 16px; }
-.video-box-wrapper { width: 100%; aspect-ratio: 4/3; background: #04050c; border-radius: 12px; overflow: hidden; position: relative; border: 1px solid var(--border-strong); }
+.video-box-wrapper { width: 100%; aspect-ratio: 16/10; max-height: 190px; background: #04050c; border-radius: 12px; overflow: hidden; position: relative; border: 1px solid var(--border-strong); }
 video { width: 100%; height: 100%; object-fit: cover; transform: scaleX(-1); }
 .shutter-flash { position: absolute; top:0; left:0; width:100%; height:100%; background: #fff; opacity: 0; pointer-events: none; }
 .shutter-flash.flash-active { animation: flashAnim 0.4s ease-out; }
@@ -416,7 +416,7 @@ video { width: 100%; height: 100%; object-fit: cover; transform: scaleX(-1); }
 .gps-map-section { grid-column: span 2; background: var(--glass-card); border: 1px solid var(--border); border-radius: 16px; padding: 20px; }
 .gps-title-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
 .gps-coordinates { font-size: 12.5px; font-weight: 700; color: #6366f1; background: rgba(99, 102, 241, 0.12); padding: 5px 12px; border-radius: 6px; border: 1px solid rgba(99, 102, 241, 0.25); }
-.map-frame-wrapper { width: 100%; height: 240px; background: rgba(0, 0, 0, 0.3); border-radius: 12px; overflow: hidden; border: 1px solid var(--border); }
+.map-frame-wrapper { width: 100%; height: 160px; background: rgba(0, 0, 0, 0.3); border-radius: 12px; overflow: hidden; border: 1px solid var(--border); }
 .map-frame-wrapper iframe { width: 100%; height: 100%; border: none; }
 
 .badge { padding: 3px 8px; border-radius: 5px; font-size: 11px; height: auto; font-weight: 700; }
@@ -424,7 +424,7 @@ video { width: 100%; height: 100%; object-fit: cover; transform: scaleX(-1); }
 .badge-prepago { background: rgba(249, 115, 22, 0.15); color: #fb923c; border: 1px solid rgba(249, 115, 22, 0.3); }
 
 /* ==========================================================================
-   POP-UPS MODALES, INPUTS Y CONFIGURACIÓN DE RADIOS
+   POP-UPS MODALES, INPUTS FORMULARES Y LUPA INTEGRADA
    ========================================================================== */
 .modal-overlay { 
     position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(4, 5, 12, 0.6); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
@@ -452,6 +452,25 @@ video { width: 100%; height: 100%; object-fit: cover; transform: scaleX(-1); }
 
 label { font-size: 12px; font-weight: 600; color: var(--text-muted); }
 
+/* Parche del botón lupa incrustado armónicamente al lado de la caja de texto */
+.form-group button[onclick*="buscarClienteBase"],
+.form-group button[type="button"] {
+    background: var(--input-bg) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 6px !important;
+    color: var(--text-main) !important;
+    cursor: pointer;
+    height: 34px !important;
+    padding: 0 12px !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.form-group button[onclick*="buscarClienteBase"]:hover {
+    background: var(--glass-bg-hover) !important;
+    border-color: var(--border-strong) !important;
+}
+
 input, select { 
     padding: 7px 12px; background: var(--input-bg); border: 1px solid var(--border); border-radius: 6px; font-size: 13px; color: var(--text-main); outline: none; box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2); height: 34px;
 }
@@ -459,15 +478,19 @@ input:focus, select:focus { border-color: #6366f1; box-shadow: 0 0 0 3px rgba(99
 input:disabled, select:disabled { background: rgba(148, 163, 184, 0.1); color: var(--text-muted); cursor: not-allowed; opacity: 0.5; }
 select option { background-color: var(--option-bg); color: var(--text-main); }
 
-#groupModalidad div[style*="display: flex"] {
+/* ==========================================================================
+   SOLUCIÓN MAESTRA EXCLUSIVA: ENCAPSULADO SÓLO PARA LAS PILL TABS (image_2bdbd0.png)
+   ========================================================================== */
+#groupModalidad div {
     display: flex !important;
     gap: 12px !important;
-    padding-top: 0 !important; 
-    height: 34px !important; 
-    align-items: center !important; 
+    padding-top: 0 !important;
+    height: 34px !important;
+    align-items: center !important;
 }
 
-#groupModalidad div[style*="display: flex"] label {
+/* Modificado quirúrgicamente: el estilo de cristal se inyecta sólo a los labels hijos de la grilla */
+#groupModalidad div label {
     display: flex !important;
     align-items: center !important;
     gap: 8px !important;
@@ -475,13 +498,14 @@ select option { background-color: var(--option-bg); color: var(--text-main); }
     font-size: 13px !important;
     color: var(--text-main) !important;
     padding: 0 12px !important;
-    height: 34px !important; 
+    height: 34px !important;
     border-radius: 6px !important;
     background: var(--radio-box-bg) !important;
     border: 1px solid var(--radio-box-border) !important;
+    font-weight: 600 !important;
 }
 
-#groupModalidad div[style*="display: flex"] label:has(input:checked) {
+#groupModalidad div label:has(input:checked) {
     border-color: #6366f1 !important;
     background: rgba(99, 102, 241, 0.08) !important;
 }
@@ -492,44 +516,11 @@ select option { background-color: var(--option-bg); color: var(--text-main); }
     margin: 0 !important;
     padding: 0 !important;
     cursor: pointer;
-    accent-color: #2563eb; 
+    accent-color: #2563eb;
 }
 
-/* ==========================================================================
-   RECALIBRACIÓN DE BOTONES FOOTER, INTERACCIÓN Y FILTROS (image_f4da45.png / image_f4da9e.png)
-   ========================================================================== */
+/* FOOTER Y ACCIONES DESTRUTIVAS ROJAS */
 .modal-footer { display: flex; justify-content: flex-end; gap: 12px; margin-top: 16px; border-top: 1px solid var(--border); padding-top: 16px; flex-shrink: 0; }
-
-/* Cancelar y Limpiar: Tono Rojo Premium Traslúcido con Contrapeso Estético iOS */
-.modal-footer .btn-secondary,
-button[onclick="limpiarFiltrosLogistica()"] { 
-    background: var(--btn-danger-bg) !important; 
-    color: var(--btn-danger-text) !important; 
-    border: 1px solid var(--btn-danger-border) !important; 
-    padding: 8px 14px; 
-    border-radius: 6px; 
-    font-size: 13px; 
-    font-weight: 600; 
-    cursor: pointer; 
-    box-shadow: 0 2px 8px rgba(239, 68, 68, 0.08);
-}
-
-.modal-footer .btn-secondary:hover,
-button[onclick="limpiarFiltrosLogistica()"]:hover { 
-    background: var(--btn-danger-hover) !important;
-    transform: translateY(-1px); 
-    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.2); 
-}
-
-.modal-footer .btn-save { 
-    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%); 
-    color: #ffffff; 
-    border: 1px solid rgba(255, 255, 255, 0.15); 
-    padding: 8px 14px; 
-    border-radius: 6px; 
-    font-size: 13px; 
-    font-weight: 600; 
-    cursor: pointer; 
-    box-shadow: 0 4px 10px rgba(37, 99, 235, 0.2); 
-}
-.modal-footer button:hover { transform: translateY(-1px); filter: brightness(1.12); }
+.modal-footer .btn-secondary, button[onclick="limpiarFiltrosLogistica()"] { background: var(--btn-danger-bg) !important; color: var(--btn-danger-text) !important; border: 1px solid var(--btn-danger-border) !important; padding: 8px 14px; border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer; box-shadow: 0 2px 8px rgba(239, 68, 68, 0.08); }
+.modal-footer .btn-secondary:hover, button[onclick="limpiarFiltrosLogistica()"]:hover { background: var(--btn-danger-hover) !important; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(239, 68, 68, 0.2); }
+.modal-footer .btn-save { background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%); color: #ffffff; border: 1px solid rgba(255, 255, 255, 0.15); padding: 8px 14px; border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer; box-shadow: 0 4px 10px rgba(37, 99, 235, 0.2); }

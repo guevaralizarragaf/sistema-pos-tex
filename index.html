@@ -4,17 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fortalecernos SAC - Gestión de PDV</title>
-    <!-- IMPORTACIÓN DE FUENTES TIPO DE DISEÑO -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
     
-    <!-- VÍNCULO AL ARCHIVO DE ESTILOS SEPARADO -->
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-    <!-- BARRA LATERAL (SIDEBAR DE NAVEGACIÓN) -->
     <div class="sidebar">
         <div class="logo-section">
             <h2>Fortalecernos SAC</h2>
@@ -27,7 +24,6 @@
             </ul>
         </div>
         
-        <!-- INFORMACIÓN DE PERFIL JERÁRQUICO -->
         <div class="user-info-bar">
             <div class="user-row">
                 <div class="user-meta">
@@ -45,11 +41,10 @@
         </div>
     </div>
 
-    <!-- SECCIÓN 1: REGISTRO DE VENTAS -->
     <div class="main-content active-view" id="viewRegistro">
         <div class="header">
             <div>
-                <h1 id="tituloDinamico">Hola Carlos, hoy 25 de junio vendimos:</h1>
+                <h1 id="tituloDinamico">Hola Carlos, hoy 26 de junio vendimos:</h1>
                 <div class="subtitle-area">
                     <span>Monitoreo de Productos en fecha:</span>
                     <input type="date" id="filtroFecha" class="date-picker-glass" onchange="cambioFecha(this.value)">
@@ -61,7 +56,6 @@
             </div>
         </div>
 
-        <!-- GRILLA HORIZONTAL DE 6 PRODUCTOS COMPACTOS -->
         <div class="indicators-horizontal-wrapper">
             <div class="indicators-row">
                 <div class="card" style="border-color: rgba(16, 185, 129, 0.35);">
@@ -109,7 +103,6 @@
             </div>
         </div>
 
-        <!-- CONTENEDOR DE LA TABLA HISTORIAL -->
         <div class="table-slider-container">
             <div class="table-title">Historial de Ventas del día</div>
             <table>
@@ -154,7 +147,6 @@
         </div>
     </div>
 
-    <!-- SECCIÓN 2: DASHBOARD AVANZADO -->
     <div class="main-content" id="viewDashboard">
         <div class="header">
             <div>
@@ -172,7 +164,6 @@
         <div id="contenedorTablasAsesores"></div>
     </div>
 
-    <!-- SECCIÓN 3: LOGÍSTICA E INVENTARIOS -->
     <div class="main-content" id="viewLogistica">
         <div class="header">
             <div>
@@ -188,179 +179,308 @@
             </div>
         </div>
 
-        <!-- SECCIÓN DE FILTROS DINÁMICOS LIQUID GLASS COMPACTA -->
-        <div class="table-container" style="padding: 16px 20px; margin-bottom: 20px;">
-            <div style="font-size: 13.5px; font-weight: 700; color: var(--text-main); margin-bottom: 12px; letter-spacing: 0.3px;">🔍 Filtros de Búsqueda Rápida</div>
-            
-            <div class="form-grid" style="grid-template-columns: repeat(4, 1fr); gap: 14px;">
-                <div class="form-group">
-                    <label for="filtroTipo">Tipo</label>
-                    <select id="filtroTipo">
-                        <option value="">TODOS</option>
-                        <option value="EQUIPO">EQUIPO</option>
-                        <option value="ACCESORIO">ACCESORIO</option>
-                    </select>
+        <div id="subViewStock">
+            <div class="table-container" style="padding: 16px 20px; margin-bottom: 20px;">
+                <div style="font-size: 13.5px; font-weight: 700; color: var(--text-main); margin-bottom: 12px; letter-spacing: 0.3px;">🔍 Filtros de Búsqueda Rápida</div>
+                <div class="form-grid" style="grid-template-columns: repeat(4, 1fr); gap: 14px;">
+                    <div class="form-group">
+                        <label for="filtroTipo">Tipo</label>
+                        <select id="filtroTipo">
+                            <option value="">TODOS</option>
+                            <option value="EQUIPO">EQUIPO</option>
+                            <option value="ACCESORIO">ACCESORIO</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="filtroMarca">Marca</label>
+                        <select id="filtroMarca">
+                            <option value="">TODAS</option>
+                            <option value="HONOR">HONOR</option>
+                            <option value="SAMSUNG">SAMSUNG</option>
+                            <option value="XIAOMI">XIAOMI</option>
+                            <option value="ZTE">ZTE</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="filtroModelo">Modelo</label>
+                        <input type="text" id="filtroModelo" placeholder="Escribe modelo (Ej: X5C)" oninput="forzarMayusculas(this)">
+                    </div>
+                    <div class="form-group">
+                        <label for="filtroSku">SKU</label>
+                        <input type="text" id="filtroSku" placeholder="Escribe SKU exacto" oninput="forzarMayusculas(this)">
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="filtroMarca">Marca</label>
-                    <select id="filtroMarca">
-                        <option value="">TODAS</option>
-                        <option value="HONOR">HONOR</option>
-                        <option value="SAMSUNG">SAMSUNG</option>
-                        <option value="XIAOMI">XIAOMI</option>
-                        <option value="ZTE">ZTE</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="filtroModelo">Modelo</label>
-                    <input type="text" id="filtroModelo" placeholder="Escribe modelo (Ej: X5C)" oninput="forzarMayusculas(this)">
-                </div>
-                <div class="form-group">
-                    <label for="filtroSku">SKU</label>
-                    <input type="text" id="filtroSku" placeholder="Escribe SKU exacto" oninput="forzarMayusculas(this)">
+                <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 14px; border-top: 1px solid var(--border); padding-top: 12px;">
+                    <button class="btn-secondary" onclick="limpiarFiltrosLogistica()">Limpiar</button>
+                    <button class="btn-primary" onclick="filtrarLogistica()">Filtrar</button>
                 </div>
             </div>
 
-            <!-- Botones de Acción de Filtros Compactos -->
-            <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 14px; border-top: 1px solid var(--border); padding-top: 12px;">
-                <button class="btn-secondary" style="padding: 6px 14px; font-size: 12.5px; border-radius: 6px; background: #1e293b;" onclick="limpiarFiltrosLogistica()">Limpiar</button>
-                <button class="btn-primary" style="padding: 6px 16px; font-size: 12.5px; border-radius: 6px;" onclick="filtrarLogistica()">Filtrar</button>
+            <div class="table-slider-container">
+                <div class="table-title">Existencias Disponibles en Almacén</div>
+                <table id="tablaStockLogistica">
+                    <thead>
+                        <tr>
+                            <th>Tienda</th>
+                            <th>Almacén</th>
+                            <th>SKU</th>
+                            <th>Stock</th>
+                            <th>Tipo</th>
+                            <th>Almacén (Nuevo/Usado)</th>
+                            <th>TEX</th>
+                            <th style="text-align: center;">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cuerpoStockLogistica">
+                        <tr data-tipo="EQUIPO" data-marca="HONOR" data-modelo="HONOR X5C 128GB" data-sku="HONORX5C128GBMDBK">
+                            <td>7262</td>
+                            <td>TEXPRESS ICA ICA II FORT PROPIOS NUEVOS</td>
+                            <td><strong>HONORX5C128GBMDBK</strong></td>
+                            <td><strong>1</strong></td>
+                            <td>EQUIPO</td>
+                            <td>NUEVO</td>
+                            <td>TE ICA II</td>
+                            <td style="text-align: center;"><button class="btn-interaction" style="padding: 4px 10px; font-size: 11px;" onclick="verImeis('HONORX5C128GBMDBK', 1)">Revisar IMEIs</button></td>
+                        </tr>
+                        <tr data-tipo="EQUIPO" data-marca="HONOR" data-modelo="HONOR X5C 128GB" data-sku="HONORX5C128GBSLV">
+                            <td>7262</td>
+                            <td>TEXPRESS ICA ICA II FORT PROPIOS NUEVOS</td>
+                            <td><strong>HONORX5C128GBSLV</strong></td>
+                            <td><strong>1</strong></td>
+                            <td>EQUIPO</td>
+                            <td>NUEVO</td>
+                            <td>TE ICA II</td>
+                            <td style="text-align: center;"><button class="btn-interaction" style="padding: 4px 10px; font-size: 11px;" onclick="verImeis('HONORX5C128GBSLV', 1)">Revisar IMEIs</button></td>
+                        </tr>
+                        <tr data-tipo="EQUIPO" data-marca="HONOR" data-modelo="HONOR X5C PLUS 256GB" data-sku="HONORX5CPLS256GBSLV">
+                            <td>7262</td>
+                            <td>TEXPRESS ICA ICA II FORT PROPIOS NUEVOS</td>
+                            <td><strong>HONORX5CPLS256GBSLV</strong></td>
+                            <td><strong>1</strong></td>
+                            <td>EQUIPO</td>
+                            <td>NUEVO</td>
+                            <td>TE ICA II</td>
+                            <td style="text-align: center;"><button class="btn-interaction" style="padding: 4px 10px; font-size: 11px;" onclick="verImeis('HONORX5CPLS256GBSLV', 1)">Revisar IMEIs</button></td>
+                        </tr>
+                        <tr data-tipo="EQUIPO" data-marca="HONOR" data-modelo="HONOR X7D 256GB" data-sku="HONORX7D256GBAZUL">
+                            <td>7262</td>
+                            <td>TEXPRESS ICA ICA II FORT PROPIOS NUEVOS</td>
+                            <td><strong>HONORX7D256GBAZUL</strong></td>
+                            <td><strong>1</strong></td>
+                            <td>EQUIPO</td>
+                            <td>NUEVO</td>
+                            <td>TE ICA II</td>
+                            <td style="text-align: center;"><button class="btn-interaction" style="padding: 4px 10px; font-size: 11px;" onclick="verImeis('HONORX7D256GBAZUL', 1)">Revisar IMEIs</button></td>
+                        </tr>
+                        <tr data-tipo="EQUIPO" data-marca="SAMSUNG" data-modelo="SGLXY A07 64GB" data-sku="SGLXYA076GBBL">
+                            <td>7262</td>
+                            <td>TEXPRESS ICA ICA II FORT PROPIOS NUEVOS</td>
+                            <td><strong>SGLXYA076GBBL</strong></td>
+                            <td><strong style="color: #10b981;">2</strong></td>
+                            <td>EQUIPO</td>
+                            <td>NUEVO</td>
+                            <td>TE ICA II</td>
+                            <td style="text-align: center;"><button class="btn-interaction" style="padding: 4px 10px; font-size: 11px;" onclick="verImeis('SGLXYA076GBBL', 2)">Revisar IMEIs</button></td>
+                        </tr>
+                        <tr data-tipo="EQUIPO" data-marca="XIAOMI" data-modelo="XIA REDMI A5 128GB" data-sku="XIAREDMIA5128GBBL">
+                            <td>7262</td>
+                            <td>TEXPRESS ICA ICA II FORT PROPIOS NUEVOS</td>
+                            <td><strong>XIAREDMIA5128GBBL</strong></td>
+                            <td><strong>1</strong></td>
+                            <td>EQUIPO</td>
+                            <td>NUEVO</td>
+                            <td>TE ICA II</td>
+                            <td style="text-align: center;"><button class="btn-interaction" style="padding: 4px 10px; font-size: 11px;" onclick="verImeis('XIAREDMIA5128GBBL', 1)">Revisar IMEIs</button></td>
+                        </tr>
+                        <tr data-tipo="ACCESORIO" data-marca="" data-modelo="AUDIFONOS BLUETOOTH M10" data-sku="AUDIFONOS_BLUETOOTH_M10">
+                            <td>7262</td>
+                            <td>TEXPRESS ICA ICA II FORT PROPIOS NUEVOS</td>
+                            <td><strong>AUDIFONOS_BLUETOOTH_M10</strong></td>
+                            <td><strong>15</strong></td>
+                            <td>ACCESORIO</td>
+                            <td>NUEVO</td>
+                            <td>TE ICA II</td>
+                            <td style="text-align: center; color: var(--text-muted); font-size: 11px; font-style: italic;">No aplica</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
 
-        <!-- CONTENEDOR DE LA TABLA DE EXISTENCIAS -->
-        <div class="table-slider-container">
-            <div class="table-title">Existencias Disponibles en Almacén</div>
-            <table id="tablaStockLogistica">
-                <thead>
-                    <tr>
-                        <th>Tienda</th>
-                        <th>Almacén</th>
-                        <th>SKU</th>
-                        <th>Stock</th>
-                        <th>Tipo</th>
-                        <th>Almacén (Nuevo/Usado)</th>
-                        <th>TEX</th>
-                        <th style="text-align: center;">Acciones</th>
-                    </tr>
-                </thead>
-                <tbody id="cuerpoStockLogistica">
-                    <tr data-tipo="EQUIPO" data-marca="HONOR" data-modelo="HONOR X5C 128GB" data-sku="HONORX5C128GBMDBK">
-                        <td>7262</td>
-                        <td>TEXPRESS ICA ICA II FORT PROPIOS NUEVOS</td>
-                        <td><strong>HONORX5C128GBMDBK</strong></td>
-                        <td><strong>1</strong></td>
-                        <td>EQUIPO</td>
-                        <td>NUEVO</td>
-                        <td>TE ICA II</td>
-                        <td style="text-align: center;"><button class="btn-interaction" style="padding: 4px 10px; font-size: 11px;" onclick="verImeis('HONORX5C128GBMDBK', 1)">Revisar IMEIs</button></td>
-                    </tr>
-                    <tr data-tipo="EQUIPO" data-marca="HONOR" data-modelo="HONOR X5C 128GB" data-sku="HONORX5C128GBSLV">
-                        <td>7262</td>
-                        <td>TEXPRESS ICA ICA II FORT PROPIOS NUEVOS</td>
-                        <td><strong>HONORX5C128GBSLV</strong></td>
-                        <td><strong>1</strong></td>
-                        <td>EQUIPO</td>
-                        <td>NUEVO</td>
-                        <td>TE ICA II</td>
-                        <td style="text-align: center;"><button class="btn-interaction" style="padding: 4px 10px; font-size: 11px;" onclick="verImeis('HONORX5C128GBSLV', 1)">Revisar IMEIs</button></td>
-                    </tr>
-                    <tr data-tipo="EQUIPO" data-marca="HONOR" data-modelo="HONOR X5C PLUS 256GB" data-sku="HONORX5CPLS256GBSLV">
-                        <td>7262</td>
-                        <td>TEXPRESS ICA ICA II FORT PROPIOS NUEVOS</td>
-                        <td><strong>HONORX5CPLS256GBSLV</strong></td>
-                        <td><strong>1</strong></td>
-                        <td>EQUIPO</td>
-                        <td>NUEVO</td>
-                        <td>TE ICA II</td>
-                        <td style="text-align: center;"><button class="btn-interaction" style="padding: 4px 10px; font-size: 11px;" onclick="verImeis('HONORX5CPLS256GBSLV', 1)">Revisar IMEIs</button></td>
-                    </tr>
-                    <tr data-tipo="EQUIPO" data-marca="HONOR" data-modelo="HONOR X7D 256GB" data-sku="HONORX7D256GBAZUL">
-                        <td>7262</td>
-                        <td>TEXPRESS ICA ICA II FORT PROPIOS NUEVOS</td>
-                        <td><strong>HONORX7D256GBAZUL</strong></td>
-                        <td><strong>1</strong></td>
-                        <td>EQUIPO</td>
-                        <td>NUEVO</td>
-                        <td>TE ICA II</td>
-                        <td style="text-align: center;"><button class="btn-interaction" style="padding: 4px 10px; font-size: 11px;" onclick="verImeis('HONORX7D256GBAZUL', 1)">Revisar IMEIs</button></td>
-                    </tr>
-                    <tr data-tipo="EQUIPO" data-marca="SAMSUNG" data-modelo="SGLXY A07 64GB" data-sku="SGLXYA076GBBL">
-                        <td>7262</td>
-                        <td>TEXPRESS ICA ICA II FORT PROPIOS NUEVOS</td>
-                        <td><strong>SGLXYA076GBBL</strong></td>
-                        <td><strong style="color: #10b981;">2</strong></td>
-                        <td>EQUIPO</td>
-                        <td>NUEVO</td>
-                        <td>TE ICA II</td>
-                        <td style="text-align: center;"><button class="btn-interaction" style="padding: 4px 10px; font-size: 11px;" onclick="verImeis('SGLXYA076GBBL', 2)">Revisar IMEIs</button></td>
-                    </tr>
-                    <tr data-tipo="EQUIPO" data-marca="SAMSUNG" data-modelo="SGLXY A17 128GB" data-sku="SGLXYA17128GBBL">
-                        <td>7262</td>
-                        <td>TEXPRESS ICA ICA II FORT PROPIOS NUEVOS</td>
-                        <td><strong>SGLXYA17128GBBL</strong></td>
-                        <td><strong>1</strong></td>
-                        <td>EQUIPO</td>
-                        <td>NUEVO</td>
-                        <td>TE ICA II</td>
-                        <td style="text-align: center;"><button class="btn-interaction" style="padding: 4px 10px; font-size: 11px;" onclick="verImeis('SGLXYA17128GBBL', 1)">Revisar IMEIs</button></td>
-                    </tr>
-                    <tr data-tipo="EQUIPO" data-marca="SAMSUNG" data-modelo="SGLXY A26 128GB" data-sku="SGLXYA26BK128GB">
-                        <td>7262</td>
-                        <td>TEXPRESS ICA ICA II FORT PROPIOS NUEVOS</td>
-                        <td><strong>SGLXYA26BK128GB</strong></td>
-                        <td><strong>1</strong></td>
-                        <td>EQUIPO</td>
-                        <td>NUEVO</td>
-                        <td>TE ICA II</td>
-                        <td style="text-align: center;"><button class="btn-interaction" style="padding: 4px 10px; font-size: 11px;" onclick="verImeis('SGLXYA26BK128GB', 1)">Revisar IMEIs</button></td>
-                    </tr>
-                    <tr data-tipo="EQUIPO" data-marca="XIAOMI" data-modelo="XIA REDMI A5 128GB" data-sku="XIAREDMIA5128GBBL">
-                        <td>7262</td>
-                        <td>TEXPRESS ICA ICA II FORT PROPIOS NUEVOS</td>
-                        <td><strong>XIAREDMIA5128GBBL</strong></td>
-                        <td><strong>1</strong></td>
-                        <td>EQUIPO</td>
-                        <td>NUEVO</td>
-                        <td>TE ICA II</td>
-                        <td style="text-align: center;"><button class="btn-interaction" style="padding: 4px 10px; font-size: 11px;" onclick="verImeis('XIAREDMIA5128GBBL', 1)">Revisar IMEIs</button></td>
-                    </tr>
-                    <tr data-tipo="EQUIPO" data-marca="ZTE" data-modelo="ZTE BLADE A56 PR 128GB" data-sku="ZTEBLADEA56PR128GBDO">
-                        <td>7262</td>
-                        <td>TEXPRESS ICA ICA II FORT PROPIOS NUEVOS</td>
-                        <td><strong>ZTEBLADEA56PR128GBDO</strong></td>
-                        <td><strong>1</strong></td>
-                        <td>EQUIPO</td>
-                        <td>NUEVO</td>
-                        <td>TE ICA II</td>
-                        <td style="text-align: center;"><button class="btn-interaction" style="padding: 4px 10px; font-size: 11px;" onclick="verImeis('ZTEBLADEA56PR128GBDO', 1)">Revisar IMEIs</button></td>
-                    </tr>
-                    <tr data-tipo="ACCESORIO" data-marca="" data-modelo="AUDIFONOS BLUETOOTH M10" data-sku="AUDIFONOS_BLUETOOTH_M10">
-                        <td>7262</td>
-                        <td>TEXPRESS ICA ICA II FORT PROPIOS NUEVOS</td>
-                        <td><strong>AUDIFONOS_BLUETOOTH_M10</strong></td>
-                        <td><strong>15</strong></td>
-                        <td>ACCESORIO</td>
-                        <td>NUEVO</td>
-                        <td>TE ICA II</td>
-                        <td style="text-align: center; color: var(--text-muted); font-size: 11px; font-style: italic;">No aplica</td>
-                    </tr>
-                </tbody>
-            </table>
+        <div id="subViewGestion" style="display: none;">
+            <div class="header" style="margin-bottom: 12px; border-bottom: 1px solid var(--border); padding-bottom: 10px;">
+                <h2 style="font-family: 'Instrument Sans', sans-serif; font-size: 18px; font-weight: 700; color: var(--text-main);">Transferencia de Stock</h2>
+                <div class="view-toggle-container">
+                    <button class="toggle-tab" id="tabRecibir" onclick="switchSubGestion('recibir')">Recibir</button>
+                    <button class="toggle-tab active-tab" id="tabEnviar" onclick="switchSubGestion('enviar')">Enviar</button>
+                </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1.2fr 40px 1.3fr; gap: 14px; align-items: flex-start; margin-bottom: 20px;">
+                <div>
+                    <div class="table-container" style="padding: 10px 14px; margin-bottom: 8px; display: flex; align-items: center; gap: 8px;">
+                        <input type="text" id="txtSkuFiltroMesa" placeholder="Filtrar por SKU..." style="flex: 1; height: 28px; font-size: 12px; padding: 0 8px;" oninput="evaluarExclusividadFiltro('sku')">
+                        <input type="text" id="txtImeiFiltroMesa" placeholder="Filtrar por IMEI..." style="flex: 1; height: 28px; font-size: 12px; padding: 0 8px;" oninput="evaluarExclusividadFiltro('imei')">
+                        <button class="btn-primary" style="padding: 0 10px; height: 28px; font-size: 12px;" onclick="ejecutarBusquedaMesaOrigen()">🔍</button>
+                    </div>
+
+                    <div class="table-container" style="margin-bottom: 0; height: 240px; overflow-y: auto;">
+                        <div class="table-title" style="padding: 10px 14px; font-size: 13px; color: #818cf8;">Existencias en Origen (TEX ICA II)</div>
+                        <table style="min-width: 100%; font-size: 11.5px;">
+                            <thead>
+                                <tr>
+                                    <th style="padding: 6px 10px; width: 30px;">✓</th>
+                                    <th style="padding: 6px 10px;">SKU</th>
+                                    <th style="padding: 6px 10px;">IMEI</th>
+                                    <th style="padding: 6px 10px;">Recepción</th>
+                                </tr>
+                            </thead>
+                            <tbody id="cuerpoTransferenciaOrigen">
+                                <tr data-id="tr1" data-sku="HONORX5C128GBMDBK" data-imei="86214506741251">
+                                    <td style="padding: 6px 10px;"><input type="checkbox" class="chk-transfer" value="tr1"></td>
+                                    <td style="padding: 6px 10px;"><strong>HONORX5C128GBMDBK</strong></td>
+                                    <td style="padding: 6px 10px;">86214506741251</td>
+                                    <td style="padding: 6px 10px;">11/06/2026</td>
+                                </tr>
+                                <tr data-id="tr2" data-sku="HONORX5C128GBSLV" data-imei="86214506741252">
+                                    <td style="padding: 6px 10px;"><input type="checkbox" class="chk-transfer" value="tr2"></td>
+                                    <td style="padding: 6px 10px;"><strong>HONORX5C128GBSLV</strong></td>
+                                    <td style="padding: 6px 10px;">86214506741252</td>
+                                    <td style="padding: 6px 10px;">12/06/2026</td>
+                                </tr>
+                                <tr data-id="tr3" data-sku="HONORX7D256GBAZUL" data-imei="86214506741254">
+                                    <td style="padding: 6px 10px;"><input type="checkbox" class="chk-transfer" value="tr3"></td>
+                                    <td style="padding: 6px 10px;"><strong>HONORX7D256GBAZUL</strong></td>
+                                    <td style="padding: 6px 10px;">86214506741254</td>
+                                    <td style="padding: 6px 10px;">14/06/2026</td>
+                                </tr>
+                                <tr data-id="tr4" data-sku="SGLXYA17128GBBL" data-imei="35412811741252">
+                                    <td style="padding: 6px 10px;"><input type="checkbox" class="chk-transfer" value="tr4"></td>
+                                    <td style="padding: 6px 10px;"><strong>SGLXYA17128GBBL</strong></td>
+                                    <td style="padding: 6px 10px;">35412811741252</td>
+                                    <td style="padding: 6px 10px;">12/06/2026</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div style="height: 280px; display: flex; align-items: center; justify-content: center;">
+                    <button class="btn-primary" style="padding: 0; height: 34px; width: 34px; display: flex; align-items: center; justify-content: center; border-radius: 50%;" onclick="ejecutarTraspasoVisual()">➔</button>
+                </div>
+
+                <div class="table-container" style="margin-top: 36px; height: 240px; overflow-y: auto; border-color: rgba(99, 102, 241, 0.3);">
+                    <div class="table-title" style="padding: 8px 14px; font-size: 13px; color: #10b981; display: flex; align-items: center; justify-content: space-between; gap: 8px;">
+                        <span style="white-space: nowrap;">Cargados para Despacho hacia:</span>
+                        <select id="transferenciaTiendaDestino" style="height: 26px; padding: 2px 8px; font-size: 11.5px; font-weight: 700; border-radius: 6px; background: rgba(0,0,0,0.2); border: 1px solid rgba(16,185,129,0.3); color: #10b981; width: auto; max-width: 170px;">
+                            <option value="TEX AYACUCHO">TEX AYACUCHO</option>
+                            <option value="TEX ICA 3">TEX ICA 3</option>
+                            <option value="TEX NAZCA">TEX NAZCA</option>
+                            <option value="TEX HUANTA">TEX HUANTA</option>
+                            <option value="TEX SATELITE BARRIO CHINO">TEX SATELITE BARRIO CHINO</option>
+                            <option value="TEX SATELITE CHALA">TEX SATELITE CHALA</option>
+                            <option value="TEX PARCONA" selected>TEX PARCONA</option>
+                            <option value="TEX SATELITE PUEBLO JOVEN">TEX SATELITE PUEBLO JOVEN</option>
+                            <option value="TEX ICA II">TEX ICA II</option>
+                            <option value="TEX SATELITE PALPA">TEX SATELITE PALPA</option>
+                            <option value="TEX PISCO">TEX PISCO</option>
+                            <option value="TEX SATELITE CAÑETE">TEX SATELITE CAÑETE</option>
+                            <option value="TEX ICA MODELO">TEX ICA MODELO</option>
+                        </select>
+                    </div>
+                    <table style="min-width: 100%; font-size: 11.5px;">
+                        <thead>
+                            <tr>
+                                <th style="padding: 6px 10px;">SKU</th>
+                                <th style="padding: 6px 10px;">IMEI</th>
+                            </tr>
+                        </thead>
+                        <tbody id="cuerpoTransferenciaDestino">
+                            <tr id="rowVaciaDestino"><td colspan="2" style="padding: 20px; text-align: center; color: var(--text-muted); font-style: italic;">Ningún ítem seleccionado para enviar</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="table-container" style="padding: 14px 18px; margin-bottom: 20px; background: rgba(0,0,0,0.15);">
+                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px;">
+                    <div style="display: flex; align-items: center; gap: 20px;">
+                        <div>
+                            <span style="font-size: 10px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; display: block; letter-spacing: 0.5px;">Aprobador Asignado</span>
+                            <strong style="font-size: 13.5px; color: var(--text-main);">Supervisor: Supervisor Regional</strong>
+                        </div>
+                        <div style="border-left: 1px solid var(--border); padding-left: 20px;">
+                            <span style="font-size: 10px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; display: block; letter-spacing: 0.5px;">Estado de Seguimiento</span>
+                            <span class="badge" id="lblEstadoSeguimiento" style="background: rgba(245, 158, 11, 0.15); color: #f59e0b; border: 1px solid rgba(245, 158, 11, 0.3); font-size: 11px; padding: 2px 8px;">En Revisión</span>
+                        </div>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <input type="file" id="fileCargaEvidencia" style="display: none;" onchange="registrarArchivoEvidencia(this)">
+                        <button class="btn-interaction" id="btnDispararCarga" style="padding: 8px 14px; font-size: 12.5px; background: rgba(99, 102, 241, 0.15); border-color: rgba(99, 102, 241, 0.4);" onclick="document.getElementById('fileCargaEvidencia').click()">📸 Adjuntar Evidencia</button>
+                        <button class="btn-primary" style="padding: 8px 20px;" onclick="solicitarAprobacionTransferencia()">Enviar al Aprobador</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <div class="table-title" style="padding: 12px 18px; font-size: 14px; display: flex; justify-content: space-between; align-items: center;">
+                    <span>📜 Historial de Transferencias del PDV</span>
+                    <div class="view-toggle-container" style="padding: 2px;">
+                        <button class="toggle-tab active-tab" id="tabHistEnviados" style="padding: 4px 10px; font-size: 11px;" onclick="filtrarHistorialKardex('ENVIADO')">Enviados</button>
+                        <button class="toggle-tab" id="tabHistRecibidos" style="padding: 4px 10px; font-size: 11px;" onclick="filtrarHistorialKardex('RECIBIDO')">Recibidos</button>
+                    </div>
+                </div>
+                <table style="min-width: 100%; font-size: 12px;">
+                    <thead>
+                        <tr>
+                            <th>Código Interno</th>
+                            <th>Fecha</th>
+                            <th>Cantidad</th>
+                            <th>Origen / Destino</th>
+                            <th>Responsable Log</th>
+                            <th style="text-align: center;">Evidencia</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cuerpoHistorialKardex">
+                        <tr data-kardex="ENVIADO">
+                            <td>TR-2026-0091</td>
+                            <td>24/06/2026</td>
+                            <td><strong>3 und</strong></td>
+                            <td>Hacia: <span style="color: #f97316; font-weight:600;">TEX AYACUCHO</span></td>
+                            <td>Carlos Mendoza</td>
+                            <td style="text-align: center;"><button class="btn-interaction" style="padding: 3px 8px; font-size: 11px;" onclick="desplegarImagenEvidencia('TR-2026-0091')">👁 Ver Foto</button></td>
+                        </tr>
+                        <tr data-kardex="RECIBIDO" style="display: none;">
+                            <td>TR-2026-0074</td>
+                            <td>18/06/2026</td>
+                            <td><strong>2 und</strong></td>
+                            <td>Desde: <span style="color: #10b981; font-weight:600;">TEX PISCO</span></td>
+                            <td>Supervisor Regional</td>
+                            <td style="text-align: center;"><button class="btn-interaction" style="padding: 3px 8px; font-size: 11px;" onclick="desplegarImagenEvidencia('TR-2026-0074')">👁 Ver Foto</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="subViewInventario" style="display: none;">
+            <div class="table-container" style="padding: 30px; text-align: center; color: var(--text-muted); font-style: italic;">
+                Sección de Auditoría e Inventariado Anual de Activos (Módulo bloqueado para cierre de trimestre)
+            </div>
         </div>
     </div>
 
-    <!-- SECCIÓN 4: CONTROL DE ASISTENCIA -->
     <div class="main-content" id="viewAsistencia">
-        <div class="header">
+        <div class="header" style="margin-bottom: 16px;">
             <div>
                 <h1>Control de Asistencia</h1>
                 <div class="subtitle-area">Marcado fotográfico y geolocalización GPS obligatoria</div>
             </div>
         </div>
+        
         <div class="attendance-grid">
             <div class="camera-panel">
-                <h3 style="font-size: 16px; font-weight: 600; width:100%;">Cámara Web del Asesor</h3>
+                <h3 style="font-size: 13px; font-weight: 700; width:100%; color: var(--text-muted); text-transform: uppercase;">Cámara de Marcado</h3>
                 <div class="video-box-wrapper">
                     <video id="webcam" autoplay playsinline></video>
                     <div id="flash" class="shutter-flash"></div>
@@ -371,16 +491,77 @@
                     <button class="btn-punch out" onclick="marcarAsistenciaWithGPS('Salida Real')">Salida</button>
                 </div>
             </div>
-            <div class="table-container">
-                <div class="table-title" style="color: #818cf8; font-size:15px;">Horario Semanal</div>
-                <table style="min-width: 100%;">
-                    <thead><tr><th>Día</th><th>Turno Programado</th><th>Estado Log</th></tr></thead>
-                    <tbody><tr><td>Jueves (Hoy)</td><td>09:00 AM - 18:00 PM</td><td id="logHoy">Sin registro hoy</td></tr></tbody>
+
+            <div class="table-container" style="margin-bottom:0;">
+                <div class="table-title" style="padding: 10px 14px; font-size: 14px; display: flex; align-items: center; justify-content: space-between; gap: 10px;">
+                    <span>📅 Horario Semanal</span>
+                    <select id="selectorSemanaAsistencia" style="height: 24px; padding: 2px 6px; font-size: 11px; font-weight: 700; border-radius: 6px; background: rgba(0,0,0,0.15); border: 1px solid var(--border-strong); color: var(--text-main); width: auto;">
+                        <option value="ant2">Hace 2 Semanas</option>
+                        <option value="ant1">Semana Anterior</option>
+                        <option value="act" selected>Semana Actual (22 Jun - 28 Jun)</option>
+                        <option value="prox">Próxima Semana (Cargada)</option>
+                    </select>
+                </div>
+                
+                <table style="min-width: 100%; font-size: 12px;">
+                    <thead>
+                        <tr>
+                            <th style="padding: 8px 12px;">Día</th>
+                            <th style="padding: 8px 12px;">Turno Programado</th>
+                            <th style="padding: 8px 12px;">Estado Log</th>
+                            <th style="padding: 8px 12px; text-align: center;">Captura</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="padding: 8px 12px;">Lunes</td>
+                            <td style="padding: 8px 12px;">09:00 AM - 18:00 PM</td>
+                            <td style="padding: 8px 12px;"><span class="badge badge-postpago" style="font-size:10px; padding:2px 6px;">Asistió OK</span></td>
+                            <td style="padding: 8px 12px; text-align: center;"><button class="btn-interaction" style="padding: 2px 6px; font-size: 10.5px;" onclick="desplegarImagenEvidencia('ASIS-LUNES')">👁 Ver</button></td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 8px 12px;">Martes</td>
+                            <td style="padding: 8px 12px;">09:00 AM - 18:00 PM</td>
+                            <td style="padding: 8px 12px;"><span class="badge badge-postpago" style="font-size:10px; padding:2px 6px;">Asistió OK</span></td>
+                            <td style="padding: 8px 12px; text-align: center;"><button class="btn-interaction" style="padding: 2px 6px; font-size: 10.5px;" onclick="desplegarImagenEvidencia('ASIS-MARTES')">👁 Ver</button></td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 8px 12px;">Miércoles</td>
+                            <td style="padding: 8px 12px;">09:00 AM - 18:00 PM</td>
+                            <td style="padding: 8px 12px;"><span class="badge badge-postpago" style="font-size:10px; padding:2px 6px;">Asistió OK</span></td>
+                            <td style="padding: 8px 12px; text-align: center;"><button class="btn-interaction" style="padding: 2px 6px; font-size: 10.5px;" onclick="desplegarImagenEvidencia('ASIS-MIER')">👁 Ver</button></td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 8px 12px;"><strong>Jueves (Hoy)</strong></td>
+                            <td style="padding: 8px 12px;">09:00 AM - 18:00 PM</td>
+                            <td style="padding: 8px 12px;" id="logHoy"><span style="color:var(--text-muted); font-style:italic;">Sin registro hoy</span></td>
+                            <td style="padding: 8px 12px; text-align: center; color:var(--text-muted); font-size:11px; font-style:italic;">Pendiente</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 8px 12px;">Viernes</td>
+                            <td style="padding: 8px 12px;">09:00 AM - 18:00 PM</td>
+                            <td style="padding: 8px 12px; color:var(--text-muted); font-style:italic;">Pendiente</td>
+                            <td style="padding: 8px 12px; text-align: center; color:var(--text-muted); font-size:11px; font-style:italic;">—</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 8px 12px;">Sábado</td>
+                            <td style="padding: 8px 12px;">09:00 AM - 13:00 PM</td>
+                            <td style="padding: 8px 12px; color:var(--text-muted); font-style:italic;">Pendiente</td>
+                            <td style="padding: 8px 12px; text-align: center; color:var(--text-muted); font-size:11px; font-style:italic;">—</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 8px 12px;">Domingo</td>
+                            <td style="padding: 8px 12px;">—</td>
+                            <td style="padding: 8px 12px; color:#ef4444; font-weight:600;">Descanso</td>
+                            <td style="padding: 8px 12px; text-align: center; color:var(--text-muted); font-size:11px; font-style:italic;">—</td>
+                        </tr>
+                    </tbody>
                 </table>
             </div>
+
             <div class="gps-map-section">
                 <div class="gps-title-bar">
-                    <h3>📍 Ubicación Geográfica Detectada (GPS)</h3>
+                    <h3 style="font-size: 13px; font-weight: 600;">📍 Ubicación Detectada via Satélite (GPS Obligatorio)</h3>
                     <div class="gps-coordinates" id="txtCoordenadas">Esperando marcado...</div>
                 </div>
                 <div class="map-frame-wrapper">
@@ -390,7 +571,6 @@
         </div>
     </div>
 
-    <!-- POP-UP MODAL 1: REGISTRO DE VENTAS -->
     <div class="modal-overlay" id="modalVenta">
         <div class="modal-box">
             <div class="modal-header-wrapper">
@@ -408,18 +588,16 @@
                 </div>
                 <div class="form-group">
                     <label for="numDoc">Número de Documento *</label>
-                    <div style="display: flex; gap: 8px;">
+                    <div style="display: flex; gap: 8px; width: 100%;">
                         <input type="text" id="numDoc" style="flex: 1;" placeholder="TAB para buscar" onkeydown="verificarTab(event, 'nombreCliente')">
-                        <button type="button" style="background: var(--input-bg); border: 1px solid var(--border); border-radius: 8px; cursor: pointer; padding: 0 12px;" onclick="buscarClienteBase('numDoc', 'nombreCliente')">🔍</button>
+                        <button type="button" onclick="buscarClienteBase('numDoc', 'nombreCliente')">🔍</button>
                     </div>
                 </div>
                 <div class="form-group full-width">
                     <label for="nombreCliente">Nombre Completo del Cliente *</label>
                     <input type="text" id="nombreCliente" placeholder="NOMBRE COMPLETO" oninput="forzarMayusculas(this)">
                 </div>
-
-                <div class="form-group full-width" style="border-top: 1px solid var(--border); margin: 4px 0; padding-top: 4px;"></div>
-
+                <div class="form-group full-width" style="border-top: 1px solid var(--border); margin-top: 4px; padding-top: 4px;"></div>
                 <div class="form-group">
                     <label for="producto">Producto *</label>
                     <select id="producto" onchange="aplicarReglasNegocio()">
@@ -433,9 +611,9 @@
                 </div>
                 <div class="form-group" id="groupModalidad">
                     <label>Modalidad *</label>
-                    <div style="display: flex; gap: 16px; padding-top: 8px;">
-                        <label style="display: flex; align-items: center; gap: 6px; cursor: pointer;"><input type="radio" name="modalidad" value="Prepago"> Prepago</label>
-                        <label style="display: flex; align-items: center; gap: 6px; cursor: pointer;"><input type="radio" name="modalidad" value="Postpago" checked> Postpago</label>
+                    <div>
+                        <label><input type="radio" name="modalidad" value="Prepago"> Prepago</label>
+                        <label><input type="radio" name="modalidad" value="Postpago" checked> Postpago</label>
                     </div>
                 </div>
                 <div class="form-group" id="groupCliente">
@@ -490,7 +668,6 @@
         </div>
     </div>
 
-    <!-- POP-UP MODAL 2: REGISTRO DE INTERACCIONES -->
     <div class="modal-overlay" id="modalInteraccion">
         <div class="modal-box">
             <div class="modal-header-wrapper">
@@ -504,18 +681,16 @@
                 </div>
                 <div class="form-group">
                     <label for="numDocInt">Número de Documento *</label>
-                    <div style="display: flex; gap: 8px;">
+                    <div style="display: flex; gap: 8px; width: 100%;">
                         <input type="text" id="numDocInt" style="flex: 1;" placeholder="TAB para buscar" onkeydown="verificarTab(event, 'nombreClienteInt')">
-                        <button type="button" style="background: var(--input-bg); border: 1px solid var(--border); border-radius: 8px; cursor: pointer; padding: 0 12px;" onclick="buscarClienteBase('numDocInt', 'nombreClienteInt')">🔍</button>
+                        <button type="button" onclick="buscarClienteBase('numDocInt', 'nombreClienteInt')">🔍</button>
                     </div>
                 </div>
                 <div class="form-group full-width">
                     <label for="nombreClienteInt">Nombre Completo del Cliente *</label>
-                    <input type="text" id="nombreClienteInt" placeholder="NOMBRE COMPLETO" oninput="forzarMayusculas(this)">
+                    <input type="text" id="nombreClienteInt" class="uppercase-input" placeholder="NOMBRE COMPLETO" oninput="forzarMayusculas(this)">
                 </div>
-
-                <div class="form-group full-width" style="border-top: 1px solid var(--border); margin: 4px 0; padding-top: 4px;"></div>
-
+                <div class="form-group full-width" style="border-top: 1px solid var(--border); margin-top: 4px; padding-top: 4px;"></div>
                 <div class="form-group">
                     <label for="transaccionInt">Transacción que realizó el cliente *</label>
                     <select id="transaccionInt"><option value="Pagos">Consulta de Pagos / Recibos</option><option value="Reclamo">Reclamo Técnico</option></select>
@@ -536,13 +711,11 @@
         </div>
     </div>
 
-    <!-- POP-UP MODAL 3: AUDITORÍA DE IMEIS POR SKU -->
     <div class="modal-overlay" id="modalImeis">
         <div class="modal-box" style="width: 500px;">
             <div class="modal-header-wrapper">
                 <div class="modal-header-title" id="lblSkuModal" style="font-size: 24px;">SKU SELECCIONADO</div>
             </div>
-            
             <div class="table-container" style="border: none; box-shadow: none; margin-bottom: 0;">
                 <table style="min-width: 100%;">
                     <thead>
@@ -552,18 +725,31 @@
                         </tr>
                     </thead>
                     <tbody id="listaImeisCuerpo">
-                        <!-- Inyección Dinámica JavaScript -->
                     </tbody>
                 </table>
             </div>
-
             <div class="modal-footer">
                 <button class="btn-secondary" onclick="closeModal('modalImeis')">Cerrar Consulta</button>
             </div>
         </div>
     </div>
 
-    <!-- VÍNCULO AL ARCHIVO DE LÓGICA JAVASCRIPT SEPARADO -->
+    <div class="modal-overlay" id="modalVisualizadorFoto">
+        <div class="modal-box" style="width: 420px; text-align: center;">
+            <div class="modal-header-wrapper">
+                <div class="modal-header-title" id="lblFotoModalId" style="font-size: 20px;">Evidencia Adjunta</div>
+            </div>
+            <div style="width: 100%; height: 240px; border-radius: 12px; background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%); display: flex; flex-direction: column; align-items: center; justify-content: center; border: 1px dashed var(--border-strong); padding: 20px;">
+                <span style="font-size: 40px; margin-bottom: 10px;">📄</span>
+                <strong id="lblNombreArchivoDinamico" style="color: #34d399; font-size: 13px;">EVIDENCIA_LOGISTICA.PNG</strong>
+                <p style="font-size: 11px; color: var(--text-muted); margin-top: 6px;">Documento verificado digitalmente por la Jefatura Logística</p>
+            </div>
+            <div class="modal-footer" style="margin-top: 20px; padding-top: 14px;">
+                <button class="btn-secondary" onclick="closeModal('modalVisualizadorFoto')">Cerrar Visualización</button>
+            </div>
+        </div>
+    </div>
+
     <script src="app.js"></script>
 </body>
 </html>
