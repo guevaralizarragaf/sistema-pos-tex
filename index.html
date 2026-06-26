@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fortalecernos SAC - Gestión de PDV</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div class="sidebar">
+        <div class="logo-section">
+            <h2>Fortalecernos SAC</h2>
+            <p>Gestión de PDV</p>
+            <ul class="menu">
+                <li class="menu-item active" id="menuRegistro" onclick="cambiarSeccion('registro')">👤 Registro de Ventas</li>
+                <li class="menu-item" id="menuDashboard" onclick="cambiarSeccion('dashboard')">📊 Dashboard</li>
+                <li class="menu-item" id="menuAsistencia" onclick="cambiarSeccion('asistencia')">⏰ Asistencia</li>
+            </ul>
+        </div>
+        
+        <div class="user-info-bar">
+            <div class="user-row">
+                <div class="user-meta">
+                    <p>Carlos Mendoza</p>
+                    <span class="profile-label">Perfil: Asesor</span>
+                    <span class="pdv-label">PDV Asignado: TEX ICA II</span>
+                </div>
+                <div class="theme-switch-wrapper">
+                    <label class="theme-switch" for="checkboxTema">
+                        <input type="checkbox" id="checkboxTema" onchange="toggleTema(this)">
+                        <div class="slider"></div>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-content active-view" id="viewRegistro">
+        <div class="header">
+            <div>
+                <h1 id="tituloDinamico">Hola Carlos, hoy 25 de junio vendimos:</h1>
+                <div class="subtitle-area">
+                    <span>Monitoreo de Productos en fecha:</span>
+                    <input type="date" id="filtroFecha" class="date-picker-glass" onchange="cambioFecha(this.value)">
+                </div>
+            </div>
+            <div class="action-buttons-wrapper">
+                <button class="btn-primary" onclick="openModal('venta')">+ Registrar Venta</button>
+                <button class="btn-interaction" onclick="openModal('interaccion')">+ Interacción</button>
+            </div>
+        </div>
+
+        <div class="indicators-horizontal-wrapper">
+            <div class="indicators-row">
+                <div class="card" style="border-color: rgba(16, 185, 129, 0.35);">
+                    <div class="card-title postpago-total-title">✨ Postpago Total</div>
+                    <div class="metric-split">
+                        <div class="metric-block"><div class="metric-label">PDV</div><div class="metric-value">25</div></div>
+                        <div class="metric-block"><div class="metric-label">Mío</div><div class="metric-value highlight-total">6</div></div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-title">Renovación</div>
+                    <div class="metric-split">
+                        <div class="metric-block"><div class="metric-label">PDV</div><div class="metric-value">14</div></div>
+                        <div class="metric-block"><div class="metric-label">Mío</div><div class="metric-value highlight">4</div></div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-title prepago-title">Prepago Total</div>
+                    <div class="metric-split">
+                        <div class="metric-block"><div class="metric-label">PDV</div><div class="metric-value">22</div></div>
+                        <div class="metric-block"><div class="metric-label">Mío</div><div class="metric-value highlight-prepago">7</div></div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-title">Porta Origen Post</div>
+                    <div class="metric-split">
+                        <div class="metric-block"><div class="metric-label">PDV</div><div class="metric-value">8</div></div>
+                        <div class="metric-block"><div class="metric-label">Mío</div><div class="metric-value highlight">2</div></div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-title">Porta Origen Pre</div>
+                    <div class="metric-split">
+                        <div class="metric-block"><div class="metric-label">PDV</div><div class="metric-value">5</div></div>
+                        <div class="metric-block"><div class="metric-label">Mío</div><div class="metric-value highlight">1</div></div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-title">Línea Nueva</div>
+                    <div class="metric-split">
+                        <div class="metric-block"><div class="metric-label">PDV</div><div class="metric-value">12</div></div>
+                        <div class="metric-block"><div class="metric-label">Mío</div><div class="metric-value highlight">3</div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="table-slider-container">
+            <div class="table-title">Historial de Ventas del día</div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>N° Orden</th>
+                        <th>Asesor Responsable</th>
+                        <th>Línea Celular</th>
+                        <th>Producto</th>
+                        <th>Modalidad</th>
+                        <th>ICCID SIM</th>
+                        <th>Modelo Equipo</th>
+                        <th>IMEI Equipo</th>
+                        <th>Precio Cobrado</th>
+                    </tr>
+                </thead>
+                <tbody id="tablaHistorialVentas">
+                    <tr>
+                        <td>00123456</td>
+                        <td><strong>Carlos Mendoza</strong></td>
+                        <td>987654321</td>
+                        <td>Línea Nueva</td>
+                        <td><span class="badge badge-postpago">Postpago</span></td>
+                        <td>8951100000012345678</td>
+                        <td>—</td>
+                        <td>—</td>
+                        <td><strong>S/. 5.00</strong></td>
+                    </tr>
+                    <tr>
+                        <td>00955412</td>
+                        <td><strong>Ana Torres</strong></td>
+                        <td>955123456</td>
+                        <td>Portabilidad Origen Pre</td>
+                        <td><span class="badge badge-prepago">Prepago</span></td>
+                        <td>8951100000045612398</td>
+                        <td>—</td>
+                        <td>—</td>
+                        <td><strong>S/. 0.00</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="main-content" id="viewDashboard">
+        <div class="header">
+            <div>
+                <h1>Avance TEX ICA II</h1>
+                <div class="subtitle-area">Panel de cumplimiento de objetivos ordenado</div>
+            </div>
+            <div class="header-controls">
+                <div class="view-toggle-container">
+                    <button class="toggle-tab active-tab" id="tabMes" onclick="switchTiempo('mes')">Vista Mes</button>
+                    <button class="toggle-tab" id="tabDia" onclick="switchTiempo('dia')">Vista Día</button>
+                </div>
+            </div>
+        </div>
+        <div class="indicators-grid" id="cardsDashboard"></div>
+        <div id="contenedorTablasAsesores"></div>
+    </div>
+
+    <div class="main-content" id="viewAsistencia">
+        <div class="header">
+            <div>
+                <h1>Control de Asistencia</h1>
+                <div class="subtitle-area">Marcado fotográfico y geolocalización GPS obligatoria</div>
+            </div>
+        </div>
+        <div class="attendance-grid">
+            <div class="camera-panel">
+                <h3 style="font-size: 16px; font-weight: 600; width:100%;">Cámara Web del Asesor</h3>
+                <div class="video-box-wrapper">
+                    <video id="webcam" autoplay playsinline></video>
+                    <div id="flash" class="shutter-flash"></div>
+                </div>
+                <div class="attendance-actions">
+                    <button class="btn-punch in" onclick="marcarAsistenciaWithGPS('Ingreso Real')">Entrada</button>
+                    <button class="btn-punch break" onclick="marcarAsistenciaWithGPS('Refrigerio')">Refrigerio</button>
+                    <button class="btn-punch out" onclick="marcarAsistenciaWithGPS('Salida Real')">Salida</button>
+                </div>
+            </div>
+            <div class="table-container">
+                <div class="table-title" style="color: #818cf8; font-size:15px;">Horario Semanal</div>
+                <table style="min-width: 100%;">
+                    <thead><tr><th>Día</th><th>Turno Programado</th><th>Estado Log</th></tr></thead>
+                    <tbody><tr><td>Jueves (Hoy)</td><td>09:00 AM - 18:00 PM</td><td id="logHoy">Sin registro hoy</td></tr></tbody>
+                </table>
+            </div>
+            <div class="gps-map-section">
+                <div class="gps-title-bar">
+                    <h3>📍 Ubicación Geográfica Detectada (GPS)</h3>
+                    <div class="gps-coordinates" id="txtCoordenadas">Esperando marcado...</div>
+                </div>
+                <div class="map-frame-wrapper">
+                    <iframe id="mapaIframe" src="about:blank"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modalVenta">
+        <div class="modal-box">
+            <div class="modal-header-wrapper">
+                <div class="modal-header-title">Registrar Nueva Venta</div>
+                <input type="date" id="fechaRegistroVenta" class="modal-date-picker">
+            </div>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="tipoDoc">Tipo de Documento *</label>
+                    <select id="tipoDoc">
+                        <option value="DNI">DNI (Documento Nacional)</option>
+                        <option value="RUC">RUC (Persona Jurídica)</option>
+                        <option value="CE">Carnet de Extranjería</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="numDoc">Número de Documento *</label>
+                    <div style="display: flex; gap: 8px;">
+                        <input type="text" id="numDoc" style="flex: 1;" placeholder="TAB para buscar" onkeydown="verificarTab(event, 'nombreCliente')">
+                        <button type="button" style="background: var(--input-bg); border: 1px solid var(--border); border-radius: 8px; cursor: pointer; padding: 0 12px;" onclick="buscarClienteBase('numDoc', 'nombreCliente')">🔍</button>
+                    </div>
+                </div>
+                <div class="form-group full-width">
+                    <label for="nombreCliente">Nombre Completo del Cliente *</label>
+                    <input type="text" id="nombreCliente" placeholder="NOMBRE COMPLETO" oninput="forzarMayusculas(this)">
+                </div>
+
+                <div class="form-group full-width" style="border-top: 1px solid var(--border); margin: 4px 0; padding-top: 4px;"></div>
+
+                <div class="form-group">
+                    <label for="producto">Producto *</label>
+                    <select id="producto" onchange="aplicarReglasNegocio()">
+                        <option value="Linea Nueva">Línea Nueva</option>
+                        <option value="Portabilidad Origen Post">Portabilidad Origen Post</option>
+                        <option value="Portabilidad Origen Pre">Portabilidad Origen Pre</option>
+                        <option value="Renovación">Renovación</option>
+                        <option value="Mis In">Mis In</option>
+                        <option value="Accesorio">Accesorio</option>
+                    </select>
+                </div>
+                <div class="form-group" id="groupModalidad">
+                    <label>Modalidad *</label>
+                    <div style="display: flex; gap: 16px; padding-top: 8px;">
+                        <label style="display: flex; align-items: center; gap: 6px; cursor: pointer;"><input type="radio" name="modalidad" value="Prepago"> Prepago</label>
+                        <label style="display: flex; align-items: center; gap: 6px; cursor: pointer;"><input type="radio" name="modalidad" value="Postpago" checked> Postpago</label>
+                    </div>
+                </div>
+                <div class="form-group" id="groupCliente">
+                    <label for="cliente">Tipo de Cliente *</label>
+                    <select id="cliente"><option value="Nuevo">Nuevo</option><option value="Base">Base</option></select>
+                </div>
+                <div class="form-group" id="groupTipoProducto">
+                    <label for="tipoProducto">Tipo de Producto *</label>
+                    <select id="tipoProducto" onchange="aplicarReglasNegocio()"><option value="SIM">SIM</option><option value="PACK">PACK</option></select>
+                </div>
+                <div class="form-group">
+                    <label for="orden">Número de Orden *</label>
+                    <input type="text" id="orden" placeholder="Mínimo 8 dígitos">
+                </div>
+                <div class="form-group" id="groupLinea">
+                    <label for="linea">Línea Celular *</label>
+                    <input type="number" id="linea" placeholder="Exacto 9 dígitos">
+                </div>
+                <div class="form-group" id="groupIccid">
+                    <label for="iccid">ICCID SIM *</label>
+                    <input type="text" id="iccid" placeholder="Hasta 22 dígitos">
+                </div>
+                <div class="form-group" id="groupModeloSim">
+                    <label for="modeloSim">Modelo SIM</label>
+                    <select id="modeloSim" onchange="evaluarReglasPrecios()"><option value="NanoSIM">NanoSIM 4G LTE</option><option value="eSIM">eSIM Digital</option></select>
+                </div>
+                <div class="form-group" id="groupImei" style="display: none;">
+                    <label for="imei">IMEI *</label>
+                    <input type="text" id="imei" placeholder="Exacto 15 dígitos">
+                </div>
+                <div class="form-group" id="groupEquipo" style="display: none;">
+                    <label for="equipo">Modelo Equipo *</label>
+                    <input type="text" id="equipo" placeholder="Ej: Samsung S24">
+                </div>
+                <div class="form-group full-width" id="groupPrecioSim">
+                    <label for="precioSim">Precio del SIM *</label>
+                    <input type="number" id="precioSim" placeholder="S/. Ingresa precio">
+                </div>
+                <div class="form-group full-width" id="groupPrecioEquipo" style="display: none;">
+                    <label for="precioEquipo">Precio de Equipo *</label>
+                    <input type="number" id="precioEquipo" placeholder="S/. Ingresa precio de equipo">
+                </div>
+                <div class="form-group full-width" id="groupPrecioAccesorio" style="display: none;">
+                    <label for="precioAccesorio">Precio de Accesorio *</label>
+                    <input type="number" id="precioAccesorio" placeholder="S/. Ingresa precio de accesorio">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" onclick="closeModal('modalVenta')">Cancelar</button>
+                <button class="btn-save" onclick="closeModal('modalVenta')">Guardar Venta</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modalInteraccion">
+        <div class="modal-box">
+            <div class="modal-header-wrapper">
+                <div class="modal-header-title">Registrar Interacción</div>
+                <input type="date" id="fechaRegistroInteraccion" class="modal-date-picker">
+            </div>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="tipoDocInt">Tipo de Documento *</label>
+                    <select id="tipoDocInt"><option value="DNI">DNI</option><option value="CE">CE</option></select>
+                </div>
+                <div class="form-group">
+                    <label for="numDocInt">Número de Documento *</label>
+                    <div style="display: flex; gap: 8px;">
+                        <input type="text" id="numDocInt" style="flex: 1;" placeholder="TAB para buscar" onkeydown="verificarTab(event, 'nombreClienteInt')">
+                        <button type="button" style="background: var(--input-bg); border: 1px solid var(--border); border-radius: 8px; cursor: pointer; padding: 0 12px;" onclick="buscarClienteBase('numDocInt', 'nombreClienteInt')">🔍</button>
+                    </div>
+                </div>
+                <div class="form-group full-width">
+                    <label for="nombreClienteInt">Nombre Completo del Cliente *</label>
+                    <input type="text" id="nombreClienteInt" placeholder="NOMBRE COMPLETO" oninput="forzarMayusculas(this)">
+                </div>
+
+                <div class="form-group full-width" style="border-top: 1px solid var(--border); margin: 4px 0; padding-top: 4px;"></div>
+
+                <div class="form-group">
+                    <label for="transaccionInt">Transacción que realizó el cliente *</label>
+                    <select id="transaccionInt"><option value="Pagos">Consulta de Pagos / Recibos</option><option value="Reclamo">Reclamo Técnico</option></select>
+                </div>
+                <div class="form-group">
+                    <label for="ofrecimientoInt">Ofrecimiento realizado *</label>
+                    <select id="ofrecimientoInt"><option value="LN">Línea Nueva</option><option value="Porta">Portabilidad</option></select>
+                </div>
+                <div class="form-group full-width">
+                    <label for="motivoNoCompraInt">Motivo de no compra *</label>
+                    <select id="motivoNoCompraInt"><option value="Precio">Precio de plan elevado</option><option value="Stock">Falta de stock</option></select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" onclick="closeModal('modalInteraccion')">Cancelar</button>
+                <button class="btn-save" onclick="closeModal('modalInteraccion')">Guardar Interacción</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
