@@ -4,14 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fortalecernos SAC - Gestión de PDV</title>
+    <!-- IMPORTACIÓN DE FUENTES TIPO DE DISEÑO -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
     
+    <!-- VÍNCULO AL ARCHIVO DE ESTILOS SEPARADO -->
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
+    <!-- BARRA LATERAL (SIDEBAR DE NAVEGACIÓN) -->
     <div class="sidebar">
         <div class="logo-section">
             <h2>Fortalecernos SAC</h2>
@@ -19,10 +22,12 @@
             <ul class="menu">
                 <li class="menu-item active" id="menuRegistro" onclick="cambiarSeccion('registro')">👤 Registro de Ventas</li>
                 <li class="menu-item" id="menuDashboard" onclick="cambiarSeccion('dashboard')">📊 Dashboard</li>
+                <li class="menu-item" id="menuLogistica" onclick="cambiarSeccion('logistica')">📦 Logística</li>
                 <li class="menu-item" id="menuAsistencia" onclick="cambiarSeccion('asistencia')">⏰ Asistencia</li>
             </ul>
         </div>
         
+        <!-- INFORMACIÓN DE PERFIL JERÁRQUICO -->
         <div class="user-info-bar">
             <div class="user-row">
                 <div class="user-meta">
@@ -40,6 +45,7 @@
         </div>
     </div>
 
+    <!-- SECCIÓN 1: REGISTRO DE VENTAS -->
     <div class="main-content active-view" id="viewRegistro">
         <div class="header">
             <div>
@@ -55,6 +61,7 @@
             </div>
         </div>
 
+        <!-- GRILLA HORIZONTAL DE 6 PRODUCTOS COMPACTOS -->
         <div class="indicators-horizontal-wrapper">
             <div class="indicators-row">
                 <div class="card" style="border-color: rgba(16, 185, 129, 0.35);">
@@ -102,6 +109,7 @@
             </div>
         </div>
 
+        <!-- CONTENEDOR DE LA TABLA HISTORIAL -->
         <div class="table-slider-container">
             <div class="table-title">Historial de Ventas del día</div>
             <table>
@@ -146,6 +154,7 @@
         </div>
     </div>
 
+    <!-- SECCIÓN 2: DASHBOARD AVANZADO -->
     <div class="main-content" id="viewDashboard">
         <div class="header">
             <div>
@@ -163,6 +172,185 @@
         <div id="contenedorTablasAsesores"></div>
     </div>
 
+    <!-- SECCIÓN 3: LOGÍSTICA E INVENTARIOS -->
+    <div class="main-content" id="viewLogistica">
+        <div class="header">
+            <div>
+                <h1>Control de Inventario en TEX ICA II</h1>
+                <div class="subtitle-area">Kardex de terminales y existencias en tiempo real</div>
+            </div>
+            <div class="header-controls">
+                <div class="view-toggle-container">
+                    <button class="toggle-tab active-tab" id="tabStock" onclick="switchLogistica('stock')">Stock Actual</button>
+                    <button class="toggle-tab" id="tabGestion" onclick="switchLogistica('gestion')">Gestión de Stock</button>
+                    <button class="toggle-tab" id="tabInventario" onclick="switchLogistica('inventario')">Inventario</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECCIÓN DE FILTROS DINÁMICOS LIQUID GLASS COMPACTA -->
+        <div class="table-container" style="padding: 16px 20px; margin-bottom: 20px;">
+            <div style="font-size: 13.5px; font-weight: 700; color: var(--text-main); margin-bottom: 12px; letter-spacing: 0.3px;">🔍 Filtros de Búsqueda Rápida</div>
+            
+            <div class="form-grid" style="grid-template-columns: repeat(4, 1fr); gap: 14px;">
+                <div class="form-group">
+                    <label for="filtroTipo">Tipo</label>
+                    <select id="filtroTipo">
+                        <option value="">TODOS</option>
+                        <option value="EQUIPO">EQUIPO</option>
+                        <option value="ACCESORIO">ACCESORIO</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="filtroMarca">Marca</label>
+                    <select id="filtroMarca">
+                        <option value="">TODAS</option>
+                        <option value="HONOR">HONOR</option>
+                        <option value="SAMSUNG">SAMSUNG</option>
+                        <option value="XIAOMI">XIAOMI</option>
+                        <option value="ZTE">ZTE</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="filtroModelo">Modelo</label>
+                    <input type="text" id="filtroModelo" placeholder="Escribe modelo (Ej: X5C)" oninput="forzarMayusculas(this)">
+                </div>
+                <div class="form-group">
+                    <label for="filtroSku">SKU</label>
+                    <input type="text" id="filtroSku" placeholder="Escribe SKU exacto" oninput="forzarMayusculas(this)">
+                </div>
+            </div>
+
+            <!-- Botones de Acción de Filtros Compactos -->
+            <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 14px; border-top: 1px solid var(--border); padding-top: 12px;">
+                <button class="btn-secondary" style="padding: 6px 14px; font-size: 12.5px; border-radius: 6px; background: #1e293b;" onclick="limpiarFiltrosLogistica()">Limpiar</button>
+                <button class="btn-primary" style="padding: 6px 16px; font-size: 12.5px; border-radius: 6px;" onclick="filtrarLogistica()">Filtrar</button>
+            </div>
+        </div>
+
+        <!-- CONTENEDOR DE LA TABLA DE EXISTENCIAS -->
+        <div class="table-slider-container">
+            <div class="table-title">Existencias Disponibles en Almacén</div>
+            <table id="tablaStockLogistica">
+                <thead>
+                    <tr>
+                        <th>Tienda</th>
+                        <th>Almacén</th>
+                        <th>SKU</th>
+                        <th>Stock</th>
+                        <th>Tipo</th>
+                        <th>Almacén (Nuevo/Usado)</th>
+                        <th>TEX</th>
+                        <th style="text-align: center;">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="cuerpoStockLogistica">
+                    <tr data-tipo="EQUIPO" data-marca="HONOR" data-modelo="HONOR X5C 128GB" data-sku="HONORX5C128GBMDBK">
+                        <td>7262</td>
+                        <td>TEXPRESS ICA ICA II FORT PROPIOS NUEVOS</td>
+                        <td><strong>HONORX5C128GBMDBK</strong></td>
+                        <td><strong>1</strong></td>
+                        <td>EQUIPO</td>
+                        <td>NUEVO</td>
+                        <td>TE ICA II</td>
+                        <td style="text-align: center;"><button class="btn-interaction" style="padding: 4px 10px; font-size: 11px;" onclick="verImeis('HONORX5C128GBMDBK', 1)">Revisar IMEIs</button></td>
+                    </tr>
+                    <tr data-tipo="EQUIPO" data-marca="HONOR" data-modelo="HONOR X5C 128GB" data-sku="HONORX5C128GBSLV">
+                        <td>7262</td>
+                        <td>TEXPRESS ICA ICA II FORT PROPIOS NUEVOS</td>
+                        <td><strong>HONORX5C128GBSLV</strong></td>
+                        <td><strong>1</strong></td>
+                        <td>EQUIPO</td>
+                        <td>NUEVO</td>
+                        <td>TE ICA II</td>
+                        <td style="text-align: center;"><button class="btn-interaction" style="padding: 4px 10px; font-size: 11px;" onclick="verImeis('HONORX5C128GBSLV', 1)">Revisar IMEIs</button></td>
+                    </tr>
+                    <tr data-tipo="EQUIPO" data-marca="HONOR" data-modelo="HONOR X5C PLUS 256GB" data-sku="HONORX5CPLS256GBSLV">
+                        <td>7262</td>
+                        <td>TEXPRESS ICA ICA II FORT PROPIOS NUEVOS</td>
+                        <td><strong>HONORX5CPLS256GBSLV</strong></td>
+                        <td><strong>1</strong></td>
+                        <td>EQUIPO</td>
+                        <td>NUEVO</td>
+                        <td>TE ICA II</td>
+                        <td style="text-align: center;"><button class="btn-interaction" style="padding: 4px 10px; font-size: 11px;" onclick="verImeis('HONORX5CPLS256GBSLV', 1)">Revisar IMEIs</button></td>
+                    </tr>
+                    <tr data-tipo="EQUIPO" data-marca="HONOR" data-modelo="HONOR X7D 256GB" data-sku="HONORX7D256GBAZUL">
+                        <td>7262</td>
+                        <td>TEXPRESS ICA ICA II FORT PROPIOS NUEVOS</td>
+                        <td><strong>HONORX7D256GBAZUL</strong></td>
+                        <td><strong>1</strong></td>
+                        <td>EQUIPO</td>
+                        <td>NUEVO</td>
+                        <td>TE ICA II</td>
+                        <td style="text-align: center;"><button class="btn-interaction" style="padding: 4px 10px; font-size: 11px;" onclick="verImeis('HONORX7D256GBAZUL', 1)">Revisar IMEIs</button></td>
+                    </tr>
+                    <tr data-tipo="EQUIPO" data-marca="SAMSUNG" data-modelo="SGLXY A07 64GB" data-sku="SGLXYA076GBBL">
+                        <td>7262</td>
+                        <td>TEXPRESS ICA ICA II FORT PROPIOS NUEVOS</td>
+                        <td><strong>SGLXYA076GBBL</strong></td>
+                        <td><strong style="color: #10b981;">2</strong></td>
+                        <td>EQUIPO</td>
+                        <td>NUEVO</td>
+                        <td>TE ICA II</td>
+                        <td style="text-align: center;"><button class="btn-interaction" style="padding: 4px 10px; font-size: 11px;" onclick="verImeis('SGLXYA076GBBL', 2)">Revisar IMEIs</button></td>
+                    </tr>
+                    <tr data-tipo="EQUIPO" data-marca="SAMSUNG" data-modelo="SGLXY A17 128GB" data-sku="SGLXYA17128GBBL">
+                        <td>7262</td>
+                        <td>TEXPRESS ICA ICA II FORT PROPIOS NUEVOS</td>
+                        <td><strong>SGLXYA17128GBBL</strong></td>
+                        <td><strong>1</strong></td>
+                        <td>EQUIPO</td>
+                        <td>NUEVO</td>
+                        <td>TE ICA II</td>
+                        <td style="text-align: center;"><button class="btn-interaction" style="padding: 4px 10px; font-size: 11px;" onclick="verImeis('SGLXYA17128GBBL', 1)">Revisar IMEIs</button></td>
+                    </tr>
+                    <tr data-tipo="EQUIPO" data-marca="SAMSUNG" data-modelo="SGLXY A26 128GB" data-sku="SGLXYA26BK128GB">
+                        <td>7262</td>
+                        <td>TEXPRESS ICA ICA II FORT PROPIOS NUEVOS</td>
+                        <td><strong>SGLXYA26BK128GB</strong></td>
+                        <td><strong>1</strong></td>
+                        <td>EQUIPO</td>
+                        <td>NUEVO</td>
+                        <td>TE ICA II</td>
+                        <td style="text-align: center;"><button class="btn-interaction" style="padding: 4px 10px; font-size: 11px;" onclick="verImeis('SGLXYA26BK128GB', 1)">Revisar IMEIs</button></td>
+                    </tr>
+                    <tr data-tipo="EQUIPO" data-marca="XIAOMI" data-modelo="XIA REDMI A5 128GB" data-sku="XIAREDMIA5128GBBL">
+                        <td>7262</td>
+                        <td>TEXPRESS ICA ICA II FORT PROPIOS NUEVOS</td>
+                        <td><strong>XIAREDMIA5128GBBL</strong></td>
+                        <td><strong>1</strong></td>
+                        <td>EQUIPO</td>
+                        <td>NUEVO</td>
+                        <td>TE ICA II</td>
+                        <td style="text-align: center;"><button class="btn-interaction" style="padding: 4px 10px; font-size: 11px;" onclick="verImeis('XIAREDMIA5128GBBL', 1)">Revisar IMEIs</button></td>
+                    </tr>
+                    <tr data-tipo="EQUIPO" data-marca="ZTE" data-modelo="ZTE BLADE A56 PR 128GB" data-sku="ZTEBLADEA56PR128GBDO">
+                        <td>7262</td>
+                        <td>TEXPRESS ICA ICA II FORT PROPIOS NUEVOS</td>
+                        <td><strong>ZTEBLADEA56PR128GBDO</strong></td>
+                        <td><strong>1</strong></td>
+                        <td>EQUIPO</td>
+                        <td>NUEVO</td>
+                        <td>TE ICA II</td>
+                        <td style="text-align: center;"><button class="btn-interaction" style="padding: 4px 10px; font-size: 11px;" onclick="verImeis('ZTEBLADEA56PR128GBDO', 1)">Revisar IMEIs</button></td>
+                    </tr>
+                    <tr data-tipo="ACCESORIO" data-marca="" data-modelo="AUDIFONOS BLUETOOTH M10" data-sku="AUDIFONOS_BLUETOOTH_M10">
+                        <td>7262</td>
+                        <td>TEXPRESS ICA ICA II FORT PROPIOS NUEVOS</td>
+                        <td><strong>AUDIFONOS_BLUETOOTH_M10</strong></td>
+                        <td><strong>15</strong></td>
+                        <td>ACCESORIO</td>
+                        <td>NUEVO</td>
+                        <td>TE ICA II</td>
+                        <td style="text-align: center; color: var(--text-muted); font-size: 11px; font-style: italic;">No aplica</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- SECCIÓN 4: CONTROL DE ASISTENCIA -->
     <div class="main-content" id="viewAsistencia">
         <div class="header">
             <div>
@@ -202,6 +390,7 @@
         </div>
     </div>
 
+    <!-- POP-UP MODAL 1: REGISTRO DE VENTAS -->
     <div class="modal-overlay" id="modalVenta">
         <div class="modal-box">
             <div class="modal-header-wrapper">
@@ -301,6 +490,7 @@
         </div>
     </div>
 
+    <!-- POP-UP MODAL 2: REGISTRO DE INTERACCIONES -->
     <div class="modal-overlay" id="modalInteraccion">
         <div class="modal-box">
             <div class="modal-header-wrapper">
@@ -346,6 +536,34 @@
         </div>
     </div>
 
+    <!-- POP-UP MODAL 3: AUDITORÍA DE IMEIS POR SKU -->
+    <div class="modal-overlay" id="modalImeis">
+        <div class="modal-box" style="width: 500px;">
+            <div class="modal-header-wrapper">
+                <div class="modal-header-title" id="lblSkuModal" style="font-size: 24px;">SKU SELECCIONADO</div>
+            </div>
+            
+            <div class="table-container" style="border: none; box-shadow: none; margin-bottom: 0;">
+                <table style="min-width: 100%;">
+                    <thead>
+                        <tr>
+                            <th>Número de IMEI</th>
+                            <th>Fecha Recepción</th>
+                        </tr>
+                    </thead>
+                    <tbody id="listaImeisCuerpo">
+                        <!-- Inyección Dinámica JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn-secondary" onclick="closeModal('modalImeis')">Cerrar Consulta</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- VÍNCULO AL ARCHIVO DE LÓGICA JAVASCRIPT SEPARADO -->
     <script src="app.js"></script>
 </body>
 </html>

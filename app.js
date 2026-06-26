@@ -1,14 +1,13 @@
 /* ==========================================================================
    FORTALECERNOS SAC - SISTEMA DE GESTIÓN DE PDV (TEX ICA II)
-   MOTOR DE LÓGICA CORE: CONTROLADOR MODULAR EMERXENTE v1.1
+   MOTOR DE LÓGICA CORE: CONTROLADOR MODULAR EMERXENTE v1.4
    ========================================================================== */
 
 // --- ESTADO GLOBAL DE LA APLICACIÓN ---
 let filtroTiempo = 'dia';
 let streamCamara = null;
-const fechaHoyISO = '2026-06-25'; // Manteniendo consistencia con la interfaz original
+const fechaHoyISO = '2026-06-25'; 
 
-// Base de datos Mock para simulación de búsqueda rápida en punto de venta
 const baseClientesMock = { 
     "12345678": "JUAN ROSALES PAREDES", 
     "98765432": "MARÍA ELENA GÓMEZ" 
@@ -16,19 +15,11 @@ const baseClientesMock = {
 
 // --- INICIALIZADOR DEL SISTEMA ---
 window.onload = function() {
-    // Sincronizar fechas por defecto en los formularios y filtros de cristal
     inicializarFechas();
-    
-    // Renderizar la matriz analítica por primera vez
     actualizarDashboard();
-    
-    // Posicionar mapa base por defecto en coordenadas de Ica (TEX ICA II)
     setMapaCoordenadas(-14.0639, -75.7292);
 };
 
-/**
- * Inicializa y unifica los selectores de fecha globales
- */
 function inicializarFechas() {
     const inputsFecha = ['filtroFecha', 'fechaRegistroVenta', 'fechaRegistroInteraccion'];
     inputsFecha.forEach(id => {
@@ -38,16 +29,11 @@ function inicializarFechas() {
     cambioFecha(fechaHoyISO);
 }
 
-// --- GESTIÓN DE NAVEGACIÓN SPA (SINGLE PAGE APPLICATION) ---
-/**
- * Cambia la sección activa modificando el DOM y controlando el hardware de la cámara
- * @param {string} sec - Identificador de la sección ('registro', 'dashboard', 'asistencia')
- */
+// --- GESTIÓN DE NAVEGACIÓN SPA ---
 function cambiarSeccion(sec) {
-    const secciones = ['viewRegistro', 'viewDashboard', 'viewAsistencia'];
-    const menus = ['menuRegistro', 'menuDashboard', 'menuAsistencia'];
+    const secciones = ['viewRegistro', 'viewDashboard', 'viewLogistica', 'viewAsistencia'];
+    const menus = ['menuRegistro', 'menuDashboard', 'menuLogistica', 'menuAsistencia'];
     
-    // Alternar visibilidad de vistas principales
     secciones.forEach(id => {
         const vista = document.getElementById(id);
         if (vista) {
@@ -55,7 +41,6 @@ function cambiarSeccion(sec) {
         }
     });
 
-    // Alternar estados activos en la barra de menús
     menus.forEach(id => {
         const itemMenu = document.getElementById(id);
         if (itemMenu) {
@@ -63,7 +48,6 @@ function cambiarSeccion(sec) {
         }
     });
     
-    // Orquestación del hardware fotográfico
     if (sec === 'asistencia') { 
         iniciarCamara(); 
     } else { 
@@ -71,9 +55,87 @@ function cambiarSeccion(sec) {
     }
 }
 
-/**
- * Actualiza dinámicamente la cabecera de saludo según la fecha seleccionada
- */
+function switchLogistica(tipo) {
+    document.getElementById('tabStock').classList.toggle('active-tab', tipo === 'stock');
+    document.getElementById('tabGestion').classList.toggle('active-tab', tipo === 'gestion');
+    document.getElementById('tabInventario').classList.toggle('active-tab', tipo === 'inventario');
+    console.log(`Logística sub-view: ${tipo}`);
+}
+
+// --- LOGÍSTICA: MOTOR FILTRADO DINÁMICO EN TIEMPO REAL ---
+function filtrarLogistica() {
+    const tipoSel = document.getElementById('filtroTipo').value;
+    const marcaSel = document.getElementById('filtroMarca').value;
+    const modeloTxt = document.getElementById('filtroModelo').value.trim().toUpperCase();
+    const skuTxt = document.getElementById('filtroSku').value.trim().toUpperCase();
+
+    const filas = document.querySelectorAll('#cuerpoStockLogistica tr');
+
+    filas.forEach(fila => {
+        const tipoFila = fila.getAttribute('data-tipo') || '';
+        const marcaFila = fila.getAttribute('data-marca') || '';
+        const modeloFila = fila.getAttribute('data-modelo') || '';
+        const skuFila = fila.getAttribute('data-sku') || '';
+
+        const cumpleTipo = (tipoSel === "" || tipoFila === tipoSel);
+        const cumpleMarca = (marcaSel === "" || marcaFila === marcaSel);
+        const cumpleModelo = (modeloTxt === "" || modeloFila.includes(modeloTxt));
+        const cumpleSku = (skuTxt === "" || skuFila.includes(skuTxt));
+
+        if (cumpleTipo && cumpleMarca && cumpleModelo && cumpleSku) {
+            fila.style.display = "";
+        } else {
+            fila.style.display = "none";
+        }
+    });
+}
+
+function limpiarFiltrosLogistica() {
+    document.getElementById('filtroTipo').value = "";
+    document.getElementById('filtroMarca').value = "";
+    document.getElementById('filtroModelo').value = "";
+    document.getElementById('filtroSku').value = "";
+
+    const filas = document.querySelectorAll('#cuerpoStockLogistica tr');
+    filas.forEach(fila => {
+        fila.style.display = "";
+    });
+}
+
+// --- LOGÍSTICA: GENERADOR DINÁMICO DE IMEIS PARA AUDITORÍA ---
+function verImeis(sku, cantidad) {
+    const lblSku = document.getElementById('lblSkuModal');
+    const tbody = document.getElementById('listaImeisCuerpo');
+    if (!lblSku || !tbody) return;
+
+    lblSku.innerText = sku;
+    
+    let htmlInyeccion = "";
+    const prefijosImei = {
+        "HONOR": "86214506",
+        "SGLXY": "35412811",
+        "XIA": "86995405",
+        "ZTE": "35941206"
+    };
+
+    const marca = sku.substring(0, 5);
+    const baseImei = prefijosImei[marca] || "86001245";
+
+    for (let i = 1; i <= cantidad; i++) {
+        const imeiCorrelativo = `${baseImei}74125${i}`;
+        const fechaRecepcion = `1${i}/06/2026`; 
+        
+        htmlInyeccion += `
+            <tr>
+                <td><strong>${imeiCorrelativo}</strong></td>
+                <td style="color: #6366f1; font-weight: 600;">${fechaRecepcion}</td>
+            </tr>`;
+    }
+
+    tbody.innerHTML = htmlInyeccion;
+    document.getElementById('modalImeis').classList.add('active');
+}
+
 function cambioFecha(val) {
     const meses = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"];
     const partes = val.split('-');
@@ -87,10 +149,7 @@ function cambioFecha(val) {
     }
 }
 
-// --- FORMULARIOS Y VALIDACIÓN DE CLIENTES EN BASE ---
-/**
- * Captura pulsaciones de teclas para disparar búsquedas rápidas mediante tabulaciones o enter
- */
+// --- VALIDACIÓN DE CLIENTES ---
 function verificarTab(e, destId) {
     if (e.keyCode === 9 || e.keyCode === 13) {
         e.preventDefault();
@@ -98,9 +157,6 @@ function verificarTab(e, destId) {
     }
 }
 
-/**
- * Busca un cliente en el mock local y rellena de forma automatizada los inputs del popup de cristal
- */
 function buscarClienteBase(origId, destId) {
     const documento = document.getElementById(origId).value.trim();
     const destino = document.getElementById(destId);
@@ -116,17 +172,11 @@ function buscarClienteBase(origId, destId) {
     }
 }
 
-/**
- * Sanitiza la entrada de texto forzando el formato en mayúsculas tipo base de datos formal
- */
 function forzarMayusculas(input) { 
     input.value = input.value.toUpperCase(); 
 }
 
-// --- REGLAS DE NEGOCIO DINÁMICAS (POPUP DE VENTAS) ---
-/**
- * Aplica visualización condicional y restricciones de precios según el tipo de producto seleccionado
- */
+// --- REGLAS DE NEGOCIO (POPUP DE VENTAS) ---
 function aplicarReglasNegocio() {
     const producto = document.getElementById('producto').value;
     const gCliente = document.getElementById('groupCliente');
@@ -136,11 +186,10 @@ function aplicarReglasNegocio() {
     const gPrecioSim = document.getElementById('groupPrecioSim');
     const fieldsFisicos = ['groupIccid', 'groupModeloSim'];
     
-    // Reseteos e interacciones condicionales por producto
     if (producto === "Accesorio") {
         ocultarElementos([gCliente, gTipoProducto, gLinea, gPrecioSim, document.getElementById('groupImei'), document.getElementById('groupEquipo'), document.getElementById('groupPrecioEquipo')]);
         fieldsFisicos.forEach(id => document.getElementById(id).style.display = 'none');
-        document.getElementById('groupPrecioAccesorio').style.style.display = 'flex';
+        document.getElementById('groupPrecioAccesorio').style.display = 'flex';
     } else if (producto === "Mis In") {
         mostrarElementos([gLinea, gPrecioSim, gCliente, gTipoProducto]);
         document.getElementById('cliente').value = "Base";
@@ -178,9 +227,6 @@ function toggleCamposEquipo() {
     evaluarReglasPrecios();
 }
 
-/**
- * Automatiza precios en cero para transacciones intangibles
- */
 function evaluarReglasPrecios() {
     const prod = document.getElementById('producto').value;
     const modeloSim = document.getElementById('modeloSim').value;
@@ -195,11 +241,10 @@ function evaluarReglasPrecios() {
     }
 }
 
-// Helpers visuales internos
 function ocultarElementos(arr) { arr.forEach(el => { if(el) el.style.display = 'none'; }); }
 function mostrarElementos(arr) { arr.forEach(el => { if(el) el.style.display = 'flex'; }); }
 
-// --- MODALES (APERTURA Y CIERRE CON ANIMACIÓN DE CONTROL) ---
+// --- CONTROLES VISUALES MODALES ---
 function openModal(tipo) {
     const modalId = (tipo === 'venta') ? 'modalVenta' : 'modalInteraccion';
     const modal = document.getElementById(modalId);
@@ -214,7 +259,7 @@ function closeModal(id) {
     if (modal) modal.classList.remove('active');
 }
 
-// --- HARDWARE: ASISTENCIA, CÁMARA WEB Y GEOLOCALIZACIÓN GPS ---
+// --- HARDWARE: ASISTENCIA ---
 function iniciarCamara() {
     const video = document.getElementById('webcam');
     if (video && navigator.mediaDevices && navigator.mediaDevices.getUserMedia) { 
@@ -223,7 +268,7 @@ function iniciarCamara() {
                 streamCamara = stream; 
                 video.srcObject = stream;
             })
-            .catch(err => console.warn("Acceso a cámara web denegado o no disponible:", err));
+            .catch(err => console.warn("Webcam blocked or missing:", err));
     }
 }
 
@@ -251,7 +296,6 @@ function marcarAsistenciaWithGPS(tipoLog) {
                 document.getElementById('logHoy').innerHTML = `<span class="badge badge-postpago" style="background:rgba(16,185,129,0.2); color:#10b981;">${tipoLog} OK</span>`;
             },
             err => {
-                alert("Ubicación obligatoria para marcar asistencia. Activando coordenadas TEX ICA II de contingencia.");
                 document.getElementById('logHoy').innerHTML = `<span class="badge badge-prepago">${tipoLog} (Manual)</span>`;
             }
         );
@@ -265,12 +309,11 @@ function setMapaCoordenadas(lat, lon) {
     }
 }
 
-// --- CONMUTACIÓN DE TEMAS ---
 function toggleTema(checkbox) { 
     document.documentElement.setAttribute('data-theme', checkbox.checked ? 'white' : ''); 
 }
 
-// --- MOTOR INYECTOR DE DATOS PARA DASHBOARD (PROYECCIÓN & CUMPLIMIENTO) ---
+// --- DASHBOARD ANALÍTICO ---
 function switchTiempo(tiempo) { 
     filtroTiempo = tiempo; 
     document.getElementById('tabMes').classList.toggle('active-tab', tiempo === 'mes');
@@ -283,7 +326,6 @@ function actualizarDashboard() {
     const tablas = document.getElementById('contenedorTablasAsesores');
     if (!container) return;
 
-    // Repositorio analítico estructurado
     const cardsData = {
         mes: [
             { title: "⚡ Postpago Total", obj: 100, log: 65, idl: 60, des: 5, proy: 108, pct: 65, c: "green" },
@@ -303,7 +345,6 @@ function actualizarDashboard() {
         ]
     };
 
-    // Inyección de Cards Analíticas con barras de progreso Liquid Glass
     container.innerHTML = cardsData[filtroTiempo].map(item => {
         const isPt = item.title.includes("Postpago Total");
         const isPre = item.title.includes("Prepago");
@@ -327,7 +368,6 @@ function actualizarDashboard() {
             </div>`;
     }).join('');
 
-    // Inyección de Tablas Cruzadas de Rendimiento de Asesores por Región
     if (filtroTiempo === 'mes') {
         const productos = ["⚡ Postpago Total", "Renovación", "Prepago Total", "Porta Origen Post", "Porta Origen Pre", "Línea Nueva"];
         const asesoresMock = [
@@ -379,3 +419,11 @@ function actualizarDashboard() {
             </div>`;
     }
 }
+
+window.addEventListener('keydown', function (event) {
+    if (event.key === 'Escape') {
+        closeModal('modalVenta');
+        closeModal('modalInteraccion');
+        closeModal('modalImeis');
+    }
+});
